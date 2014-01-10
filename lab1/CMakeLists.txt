@@ -1,0 +1,22 @@
+# The name of our project is "P1".  CMakeLists files in this project can
+
+MESSAGE ("**********************************************")
+MESSAGE ("* Generating P1 demo project files ... *")
+MESSAGE ("**********************************************")
+
+PROJECT(P1)
+
+# Find OpenGL
+INCLUDE (${CMAKE_ROOT}/Modules/FindOpenGL.cmake)
+INCLUDE (${CMAKE_ROOT}/Modules/FindGLU.cmake)
+INCLUDE (${CMAKE_ROOT}/Modules/FindGLUT.cmake)
+
+INCLUDE_DIRECTORIES(${OPENGL_INCLUDE_PATH})
+INCLUDE_DIRECTORIES(${GLUT_INCLUDE_PATH})
+
+
+# Make executable
+ADD_EXECUTABLE(p1_bin main.cpp ase.h ase.cpp vector3f.h vector3f.cpp matrix4x4f.h text.h text.cpp)
+
+# Libraries to link
+TARGET_LINK_LIBRARIES(p1_bin ${OPENGL_LIBRARY} ${GLUT_LIBRARY} )
