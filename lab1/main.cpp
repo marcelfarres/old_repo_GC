@@ -229,8 +229,9 @@ void mouse(int button, int state, int x, int y)
 }
 
 
-int main(int arg, char** argv)
+int main(int argc, char** argv)
 {
+    glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_RGB | GLUT_DOUBLE);
 	glutInitWindowPosition(200, 0);
 	glutInitWindowSize(640, 480);
@@ -245,7 +246,7 @@ int main(int arg, char** argv)
 
 	// load a model
 	//g_model.load("data\\teapot.ase");
-	g_model.load("data\\knot.ase");
+	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
 
 	glutSwapBuffers();

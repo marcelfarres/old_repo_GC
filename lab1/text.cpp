@@ -1,5 +1,6 @@
 #include <sys/stat.h>
 #include <stdio.h>
+#include <iostream>
 #include <stdlib.h>
 #include <string.h>
 #include "text.h"
@@ -26,7 +27,8 @@ CText::CText(const char *name)
 	}
 	else
 	{
-		mSize = 0;
+        std::cout << "Error opening file \"" << name << "\"" << std::endl;
+        exit(1);
 	}
 }
 
@@ -61,8 +63,7 @@ char *CText::GetWord()
 	char *res;
 
 	p0=mSl;
-
-	while ((!Legal(mData[p0])) && (p0<int(mSize)) )p0++;
+	while ((!Legal(mData[p0]))  && (p0<int(mSize)) ) p0++;
 	
 	p1=p0+1;
 	
@@ -199,12 +200,12 @@ int CText::Eof()
 }
 
 
-bool CText::Seek(char *token)
+bool CText::Seek(std::string token)
 {
 	char *dummy = GetWord();
 	int mSlAnt = mSl;
 
-	while (strcmp(dummy,token) && (mSl<mSize))
+	while (strcmp(dummy,token.c_str()) && (mSl<mSize))
 	{	
 		free(dummy);
 		dummy=GetWord();

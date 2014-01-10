@@ -30,7 +30,7 @@ public:
 	void Reset();
 	void Destroy();
 	void GoBack();
-	bool Seek(char *);
+	bool Seek(std::string);
 	int Legal(char c);
 	int Eof();
 };

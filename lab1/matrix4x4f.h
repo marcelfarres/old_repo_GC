@@ -12,6 +12,7 @@
 #include "vector3f.h"
 #include <memory>
 #include <cmath>
+#include <cstring>
 #include <iostream>
 using namespace std;
 
@@ -36,7 +37,7 @@ public:
 	void translate_x(const float &dist);
 	void translate_y(const float &dist);
 	void translate_z(const float &dist);
-	void rotate(const float &angle, vector3f &axis);
+	void rotate(const float &angle, const vector3f &axis);
 	void rotate_x(const float &angle);
 	void rotate_y(const float &angle);
 	void rotate_z(const float &angle);
@@ -45,7 +46,7 @@ public:
     void transformVector( vector3f *vec );
 
 	// Static utility methods
-	static matrix4x4f matrix4x4f::invertMatrix( const matrix4x4f *matIn );
+	static matrix4x4f invertMatrix( const matrix4x4f *matIn );
 	
     // Operators...
 	matrix4x4f operator + (const matrix4x4f &other);
@@ -104,11 +105,11 @@ void matrix4x4f::translate_z( const float &dist )
 	m[14] = dist;
 }
 
-void matrix4x4f::rotate( const float &angle, vector3f &axis )
+void matrix4x4f::rotate( const float &angle, const vector3f &ax )
 {
 	float s = sin(DEGTORAD(angle));
 	float c = cos(DEGTORAD(angle));
-
+    vector3f axis(ax);
     axis.normalize();
 
 	float ux = axis.x;
