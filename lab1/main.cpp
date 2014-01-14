@@ -66,7 +66,7 @@ void display(void)
 	// setup camera
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	gluPerspective(60,1.33,0.00000001,200);
+	gluPerspective(60,1.33,0.01,200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
  
