@@ -1,7 +1,7 @@
 #include <iostream>
 
 // global includes
-#include <GL/glut.h>
+#include "GL/glut.h"
 
 // local includes
 #include "ase.h"
@@ -32,20 +32,17 @@ CASEModel g_model;
 
 //2k8
 
-void drawString(int x, int y, const char* string)
-{
+void drawString(int x, int y, const char* string){
 	int i, len;
 	glRasterPos2f(x, y);
 	glColor3f(1,1,1);
 	len = strlen (string);
-	for (i=0;i<len;i++)
-	{
+	for (i=0;i<len;i++)	{
 		glutBitmapCharacter(GLUT_BITMAP_HELVETICA_10,string[i]);
 	}
 }
 
-void help()
-{
+void help(){
 	glDisable(GL_LIGHTING);
 	// prepare 2d viewport
 	glMatrixMode(GL_MODELVIEW);
@@ -69,42 +66,42 @@ void display(void)
 	// setup camera
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	gluPerspective(60,1.33,1,200);
+	gluPerspective(60,1.33,0.00000001,200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
  
 	matrix4x4f view;
-  view.identity();
+	view.identity();
 
-  g_vLook.normalize();
+	g_vLook.normalize();
 
-  g_vRight = crossProduct(g_vLook, g_vUp);
-  g_vRight.normalize();
+	g_vRight = crossProduct(g_vLook, g_vUp);
+	g_vRight.normalize();
 
-  g_vUp = crossProduct(g_vRight, g_vLook);
-  g_vUp.normalize();
+	g_vUp = crossProduct(g_vRight, g_vLook);
+	g_vUp.normalize();
 
-  view.m[0] =  g_vRight.x;
-  view.m[1] =  g_vUp.x;
-  view.m[2] = -g_vLook.x;
-  view.m[3] =  0.0f;
+	view.m[0] =  g_vRight.x;
+	view.m[1] =  g_vUp.x;
+	view.m[2] = -g_vLook.x;
+	view.m[3] =  0.0f;
 
-  view.m[4] =  g_vRight.y;
-  view.m[5] =  g_vUp.y;
-  view.m[6] = -g_vLook.y;
-  view.m[7] =  0.0f;
+	view.m[4] =  g_vRight.y;
+	view.m[5] =  g_vUp.y;
+	view.m[6] = -g_vLook.y;
+	view.m[7] =  0.0f;
 
-  view.m[8]  =  g_vRight.z;
-  view.m[9]  =  g_vUp.z;
-  view.m[10] = -g_vLook.z;
-  view.m[11] =  0.0f;
+	view.m[8]  =  g_vRight.z;
+	view.m[9]  =  g_vUp.z;
+	view.m[10] = -g_vLook.z;
+	view.m[11] =  0.0f;
 
-  view.m[12] = -dotProduct(g_vRight, g_vEye);
-  view.m[13] = -dotProduct(g_vUp, g_vEye);
-  view.m[14] =  dotProduct(g_vLook, g_vEye);
-  view.m[15] =  1.0f;
+	view.m[12] = -dotProduct(g_vRight, g_vEye);
+	view.m[13] = -dotProduct(g_vUp, g_vEye);
+	view.m[14] =  dotProduct(g_vLook, g_vEye);
+	view.m[15] =  1.0f;
 
-  glMultMatrixf( view.m );
+	glMultMatrixf( view.m );
 	//render here
 
 	//draw two triangles centered at 0,0,0
@@ -142,16 +139,14 @@ void display(void)
 	glutSwapBuffers();
 }
 
-void reshape(int w, int h)
-{
+void reshape(int w, int h){
 	g_width = w;
 	g_height = h;
 	glMatrixMode (GL_MODELVIEW);
 	glViewport (0, 0, w, h);
 }
 
-void parsekey(unsigned char key, int x, int y)
-{
+void parsekey(unsigned char key, int x, int y){
 	switch (key)
 	{
 		case 27: exit(0); break;
@@ -159,8 +154,7 @@ void parsekey(unsigned char key, int x, int y)
 	}
 }
 
-void parsekey_special(int key, int x, int y)
-{
+void parsekey_special(int key, int x, int y){
 	switch (key)
 	{
 		case GLUT_KEY_UP:
@@ -178,13 +172,11 @@ void parsekey_special(int key, int x, int y)
 	}
 }
 
-void idle()
-{
+void idle(){
 	display();
 }
 
-void motion(int x, int y)
-{
+void motion(int x, int y){
 	int dx = x - g_mouse_x;
 	int dy = y - g_mouse_y;
 
@@ -193,16 +185,16 @@ void motion(int x, int y)
 		matrix4x4f matRotation;
 		if( dy != 0 )
 		{
-				matRotation.rotate( -(float)dy / 3.0f, g_vRight );
-				matRotation.transformVector( &g_vLook );
-				matRotation.transformVector( &g_vUp );
+			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
+			matRotation.transformVector( &g_vLook );
+			matRotation.transformVector( &g_vUp );
 		}
 
 		if( dx != 0 )
 		{
-				matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
-				matRotation.transformVector( &g_vLook );
-				matRotation.transformVector( &g_vUp );
+			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
+			matRotation.transformVector( &g_vLook );
+			matRotation.transformVector( &g_vUp );
 		}
 
 	}
@@ -241,8 +233,8 @@ int main(int argc, char** argv)
 	glutSpecialFunc(parsekey_special);
 	glutReshapeFunc(reshape);
 	glutIdleFunc(idle);
-  glutMouseFunc(mouse);
-  glutMotionFunc(motion);
+	glutMouseFunc(mouse);
+	glutMotionFunc(motion);
 
 	// load a model
 	//g_model.load("data\\teapot.ase");
