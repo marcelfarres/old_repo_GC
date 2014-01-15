@@ -8,6 +8,8 @@
 #include "vector3f.h"
 #include "matrix4x4f.h"
 
+#include "box3f.h"
+
 // global libs
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
@@ -24,6 +26,7 @@ int g_width, g_height;
 
 // the mesh model
 CASEModel g_model;
+box3f *box;
 
 // local defines
 #define LEFTMOUSE 0
@@ -104,30 +107,21 @@ void display(void)
 	glMultMatrixf( view.m );
 	//render here
 
-	//draw two triangles centered at 0,0,0
-	glBegin(GL_LINES);
-	for (int i=0;i<10;i++)
-	{
-		glVertex3f(-3,0,-3);
-		glVertex3f(3,0,-3);
+	//draw  a square centered at 0,0
+	glBegin(GL_QUADS);
 
-		glVertex3f(-3,0,3);
-		glVertex3f(3,0,3);
+	glVertex3f(-3,0,3);
+	glVertex3f(3,0,3);
+	glVertex3f(3, 0, -3);
+	glVertex3f(-3, 0, -3);
 
-		glVertex3f(-3,0,-3);
-		glVertex3f(-3,0,3);
-
-		glVertex3f(3,0,-3);
-		glVertex3f(3,0,3);
-
-		glVertex3f(3,0,-3);
-		glVertex3f(-3,0,3);
-	}
 	glEnd();
 
 
 	// draw 3d model
 	g_model.render();
+	box->render();
+
 	// ...
 	//glutWireCube(1);
 	// dibuixar un cub on cada banda té 1 de llarg
@@ -240,7 +234,7 @@ int main(int argc, char** argv)
 	//g_model.load("data\\teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
-
+	box = &box3f(2, -2, -2 , 2, 2, -2),
 	glutSwapBuffers();
 	glutMainLoop();
 	return 0;
