@@ -92,25 +92,25 @@ box3f CASEModel::getBoundingBox() const {
         return box3f(0,0,0,0,0,0);
     }
     vector3f f = m_vertices[0];
-    box3f bBox(f.y, f.y, f.x, f.x, f.z, f.z);
+    box3f bBox(f.x, f.x, f.y, f.y, f.z, f.z);
     for (unsigned i = 1; i < m_vertices.size(); i++) {
         
         if (bBox.top < m_vertices[i].y) {
             bBox.top = m_vertices[i].y;
         }
-        if (bBox.bottom > m_vertices[i].y) {
+        else if (bBox.bottom > m_vertices[i].y) {
             bBox.bottom = m_vertices[i].y;
         }
         if (bBox.right < m_vertices[i].x) {
             bBox.right = m_vertices[i].x;
         }
-        if (bBox.left > m_vertices[i].x) {
+        else if (bBox.left > m_vertices[i].x) {
             bBox.left = m_vertices[i].x;
         }
         if (bBox.front < m_vertices[i].z) {
             bBox.front = m_vertices[i].z;
         }
-        if (bBox.back > m_vertices[i].z) {
+        else if (bBox.back > m_vertices[i].z) {
             bBox.back = m_vertices[i].z;
         }
     }

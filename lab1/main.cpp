@@ -58,6 +58,9 @@ void help(){
 	drawString(690,40,"Press LEFT BUTTON to perform looking");
 }
 void drawAxis() {
+    // XYZ correspond to RGB. 
+    // Negative coordinates are the inverse color.
+    
     glBegin(GL_LINES);
         glColor3f(1,0,0);
         glVertex3f(2,0,0);
