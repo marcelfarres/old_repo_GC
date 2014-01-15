@@ -47,3 +47,6 @@ bool box3f::contains(const vector3f &v) const {
             bottom < v.y && v.y < top &&
             back < v.z && v.z < front);
 }
+vector3f box3f::getCenter() const {
+return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + right)*0.5);
+}

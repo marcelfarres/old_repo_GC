@@ -16,5 +16,6 @@ public:
 	~box3f();
 	void render() const;
     bool contains(const vector3f & v) const;
+    vector3f getCenter() const;
 };
 
