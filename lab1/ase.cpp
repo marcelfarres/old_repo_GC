@@ -1,6 +1,6 @@
 #include "ase.h"
 #include "text.h"
-
+#include "vector3f.h"
 #include <cmath>
 
 #ifdef _WIN32
@@ -64,7 +64,7 @@ bool CASEModel::load(const char* filename)
 void CASEModel::render() const
 {	
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-
+    glColor3f(1,1,1);
 	glBegin(GL_TRIANGLES);
 	int i;
 	for (i=0;i<m_triangles.size();i++)
@@ -85,4 +85,34 @@ void CASEModel::render() const
 		glVertex3fv(m_vertices[t.c]);
 	}
 	glEnd();
+}
+
+box3f CASEModel::getBoundingBox() const {
+    if (m_vertices.size() == 0) {
+        return box3f(0,0,0,0,0,0);
+    }
+    vector3f f = m_vertices[0];
+    box3f bBox(f.y, f.y, f.x, f.x, f.z, f.z);
+    for (unsigned i = 1; i < m_vertices.size(); i++) {
+        
+        if (bBox.top < m_vertices[i].y) {
+            bBox.top = m_vertices[i].y;
+        }
+        if (bBox.bottom > m_vertices[i].y) {
+            bBox.bottom = m_vertices[i].y;
+        }
+        if (bBox.right < m_vertices[i].x) {
+            bBox.right = m_vertices[i].x;
+        }
+        if (bBox.left > m_vertices[i].x) {
+            bBox.left = m_vertices[i].x;
+        }
+        if (bBox.front < m_vertices[i].z) {
+            bBox.front = m_vertices[i].z;
+        }
+        if (bBox.back > m_vertices[i].z) {
+            bBox.back = m_vertices[i].z;
+        }
+    }
+    return bBox;
 }

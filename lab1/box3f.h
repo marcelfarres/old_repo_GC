@@ -1,17 +1,19 @@
 #pragma once
-#include "vector3f.h"
-class box3f
-{
-public:
-	box3f(float t, float b, float l, float r, float f, float bk);
-	~box3f();
-	void render() const;
 
-private: 
+// Top is in the positive Y
+// Right is positive X
+// Front is positive Z
+
+class box3f {
+public:
 	union {
 		struct{ float coords[6]; };
-		struct{ float top, bottom, left, right, front, back; };
+		struct{ float right, top, front, left, bottom, back; };
 	};
 
+    box3f();
+	box3f(float r, float t, float f, float l, float b, float bk);
+	~box3f();
+	void render() const;
 };
 

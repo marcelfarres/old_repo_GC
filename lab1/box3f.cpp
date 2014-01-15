@@ -4,7 +4,9 @@
 #endif
 #include <GL/gl.h>
 
-box3f::box3f(float t, float b, float l, float r, float f, float bk) :
+box3f::box3f() {};
+
+box3f::box3f(float r, float t, float f, float b, float l, float bk) :
 	top(t), bottom(b),
 	left(l), right(r),
 	front(f), back(bk)
@@ -15,27 +17,27 @@ box3f::~box3f(){
 
 void box3f::render() const{
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+    glColor3f(1,1,1);
 	glBegin(GL_QUADS);
+	glVertex3f(left, top, front);
+	glVertex3f(left, bottom, front);
+	glVertex3f(right, bottom, front);
+	glVertex3f(right, top, front);
 
-	glVertex3f(top, left, front);
-	glVertex3f(bottom, left, front);
-	glVertex3f(bottom, right, front);
-	glVertex3f(top, right, front);
+	glVertex3f(right, top, front);
+	glVertex3f(right, bottom, front);
+	glVertex3f(right, bottom, back);
+	glVertex3f(right, top, back);
 
-	glVertex3f(top, right, front);
-	glVertex3f(bottom, right, front);
-	glVertex3f(bottom, right, back);
-	glVertex3f(top, right, back);
+	glVertex3f(right, top, back);
+	glVertex3f(right, bottom, back);
+	glVertex3f(left, bottom, back);
+	glVertex3f(left, top, back);
 
-	glVertex3f(top, right, back);
-	glVertex3f(bottom, right, back);
-	glVertex3f(bottom, left, back);
-	glVertex3f(top, left, back);
-
-	glVertex3f(top, left, back);
-	glVertex3f(bottom, left, back);
-	glVertex3f(bottom, left, front);
-	glVertex3f(top, left, front);
+	glVertex3f(left, top, back);
+	glVertex3f(left, bottom, back);
+	glVertex3f(left, bottom, front);
+	glVertex3f(left, top, front);
 
 	glEnd();
 

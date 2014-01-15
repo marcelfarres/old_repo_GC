@@ -16,8 +16,8 @@
 #pragma comment(lib, "glut32.lib")
 
 // global variables
-vector3f g_vEye(0,1,-5);
-vector3f g_vLook(0,0,1);
+vector3f g_vEye(0,1,5);
+vector3f g_vLook(0,0,-1);
 vector3f g_vRight(-1,0,0);
 vector3f g_vUp(0,1,0);
 int g_buttons[3];
@@ -26,7 +26,7 @@ int g_width, g_height;
 
 // the mesh model
 CASEModel g_model;
-box3f *box;
+box3f box;
 
 // local defines
 #define LEFTMOUSE 0
@@ -57,7 +57,22 @@ void help(){
 	drawString(690,10,"Press UP/DOWN/LEFT/RIGHT to navigate");
 	drawString(690,40,"Press LEFT BUTTON to perform looking");
 }
-
+void drawAxis() {
+    glBegin(GL_LINES);
+        glColor3f(1,0,0);
+        glVertex3f(2,0,0);
+        glColor3f(0,1,1);
+        glVertex3f(-2,0,0);
+        glColor3f(0,1,0);
+        glVertex3f(0,2,0);
+        glColor3f(1,0,1);
+        glVertex3f(0,-2,0);
+        glColor3f(0,0,1);
+        glVertex3f(0,0,2);
+        glColor3f(1,1,0);
+        glVertex3f(0,0,-2);
+    glEnd();
+}
 void display(void)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -117,10 +132,13 @@ void display(void)
 
 	glEnd();
 
+    // draw axis centered at 0,0,0
+
+    drawAxis();
 
 	// draw 3d model
 	g_model.render();
-	box->render();
+	box.render();
 
 	// ...
 	//glutWireCube(1);
@@ -234,7 +252,7 @@ int main(int argc, char** argv)
 	//g_model.load("data\\teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
-	box = new box3f(2, -2, -2 , 2, 2, -2),
+	box = g_model.getBoundingBox();
 	glutSwapBuffers();
 	glutMainLoop();
 	return 0;
