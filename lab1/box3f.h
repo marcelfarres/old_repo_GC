@@ -1,5 +1,5 @@
 #pragma once
-
+#include "vector3f.h"
 // Top is in the positive Y
 // Right is positive X
 // Front is positive Z
@@ -15,5 +15,6 @@ public:
 	box3f(float r, float t, float f, float l, float b, float bk);
 	~box3f();
 	void render() const;
+    bool contains(const vector3f & v) const;
 };
 

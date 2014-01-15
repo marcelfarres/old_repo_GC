@@ -40,5 +40,10 @@ void box3f::render() const{
 	glVertex3f(left, top, front);
 
 	glEnd();
+}
 
+bool box3f::contains(const vector3f &v) const {
+    return (left < v.x && v.x < right &&
+            bottom < v.y && v.y < top &&
+            back < v.z && v.z < front);
 }
