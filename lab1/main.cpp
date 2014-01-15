@@ -103,6 +103,7 @@ void display(void)
 	//render here
 
 	//draw  a square centered at 0,0
+    glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_QUADS);
 
 	glVertex3f(-3,0,3);

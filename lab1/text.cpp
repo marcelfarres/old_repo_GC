@@ -223,7 +223,7 @@ bool CText::Seek(std::string token)
 CText::~CText()
 {
 	if (mData!=NULL) 
-		delete mData;
+		delete [] mData;
 }
 
 
