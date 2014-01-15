@@ -23,7 +23,7 @@ public:
 	char *GetWord();
 	char *GetCommaWord();
 	int GetInt();
-	double GetFloat();
+	float GetFloat();
 
 	int CountWord(char *);
 	int CountChar(char);

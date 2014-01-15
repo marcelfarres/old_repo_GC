@@ -122,9 +122,9 @@ int CText::GetInt()
 	return res;
 }
 
-double CText::GetFloat()
+float CText::GetFloat()
 {
-	double res;
+	float res;
 	char *tmp;
 
 	tmp=GetWord();

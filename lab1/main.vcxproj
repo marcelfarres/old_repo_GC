@@ -13,6 +13,7 @@
   <PropertyGroup Label="Globals">
     <SccProjectName />
     <SccLocalPath />
+    <ProjectGuid>{EEA57C17-D4C0-4E2D-A394-EA5D53B00D3B}</ProjectGuid>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -120,13 +121,17 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="ase.cpp" />
+    <ClCompile Include="box3f.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Octree.cpp" />
     <ClCompile Include="text.cpp" />
     <ClCompile Include="vector3f.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ase.h" />
+    <ClInclude Include="box3f.h" />
     <ClInclude Include="matrix4x4f.h" />
+    <ClInclude Include="Octree.h" />
     <ClInclude Include="text.h" />
     <ClInclude Include="vector3f.h" />
   </ItemGroup>
