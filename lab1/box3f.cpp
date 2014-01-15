@@ -4,7 +4,7 @@
 #endif
 #include <GL/gl.h>
 
-box3f::box3f(int t, int b, int l, int r, int f, int bk) :
+box3f::box3f(float t, float b, float l, float r, float f, float bk) :
 	top(t), bottom(b),
 	left(l), right(r),
 	front(f), back(bk)

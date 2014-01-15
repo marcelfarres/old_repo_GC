@@ -1,4 +1,4 @@
-#include "Octree.h"
+#include "octree.h"
 
 
 Octree::Octree(const std::vector<triangle> t) : triangles(t){

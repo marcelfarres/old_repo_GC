@@ -3,7 +3,7 @@
 class box3f
 {
 public:
-	box3f(int t, int b, int l, int r, int f, int bk);
+	box3f(float t, float b, float l, float r, float f, float bk);
 	~box3f();
 	void render() const;
 

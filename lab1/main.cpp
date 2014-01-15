@@ -69,7 +69,7 @@ void display(void)
 	// setup camera
 	glMatrixMode (GL_PROJECTION);
 	glLoadIdentity ();
-	gluPerspective(60,1.33,0.01,200);
+	gluPerspective(60,1.33,1,200);
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
  
@@ -234,7 +234,7 @@ int main(int argc, char** argv)
 	//g_model.load("data\\teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
-	box = &box3f(2, -2, -2 , 2, 2, -2),
+	box = new box3f(2, -2, -2 , 2, 2, -2),
 	glutSwapBuffers();
 	glutMainLoop();
 	return 0;

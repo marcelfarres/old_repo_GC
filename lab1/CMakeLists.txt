@@ -16,7 +16,8 @@ INCLUDE_DIRECTORIES(${GLUT_INCLUDE_PATH})
 
 
 # Make executable
-ADD_EXECUTABLE(p1_bin main.cpp ase.h ase.cpp vector3f.h vector3f.cpp matrix4x4f.h text.h text.cpp)
+ADD_EXECUTABLE(p1_bin main.cpp ase.h ase.cpp vector3f.h vector3f.cpp
+    matrix4x4f.h text.h text.cpp box3f.h box3f.cpp octree.h octree.cpp)
 
 # Libraries to link
 TARGET_LINK_LIBRARIES(p1_bin ${OPENGL_LIBRARY} ${GLUT_LIBRARY} )

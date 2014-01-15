@@ -4,9 +4,9 @@
 class Octree
 {
 public:
-	Octree::Octree(const std::vector<triangle> t);
+	Octree(const std::vector<triangle> t);
 	~Octree();
-	void Octree::make_root();
+	void make_root();
 
 	void build_octree();
 private:
