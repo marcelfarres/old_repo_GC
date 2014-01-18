@@ -7,9 +7,8 @@
 box3f::box3f() {};
 
 box3f::box3f(float r, float t, float f, float b, float l, float bk) :
-	top(t), bottom(b),
-	left(l), right(r),
-	front(f), back(bk)
+    right(r), top(t), front(f),
+    left(l), bottom(b), back(bk)
 {};
 
 box3f::~box3f(){
@@ -47,6 +46,14 @@ bool box3f::contains(const vector3f &v) const {
             bottom < v.y && v.y < top &&
             back < v.z && v.z < front);
 }
-vector3f box3f::getCenter() const {
+
+int box3f::get_octant(const vector3f &v) const {
+    vector3f center = get_center();
+    return ((v.x > center.x) << 2) |
+           ((v.y > center.y) << 1) |
+           (v.z > center.y);
+}
+
+vector3f box3f::get_center() const {
 return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + right)*0.5);
 }

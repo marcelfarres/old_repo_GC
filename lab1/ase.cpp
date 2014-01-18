@@ -15,6 +15,13 @@ CASEModel::CASEModel()
 {
 }
 
+const std::vector<triangle> & CASEModel::getTriangles() const {
+    return m_triangles;
+}
+
+const vector3f CASEModel::get_vertex(unsigned i) const  {
+    return m_vertices[i];
+}
 bool CASEModel::load(const char* filename)
 {
 	CText t(filename);
@@ -28,11 +35,11 @@ bool CASEModel::load(const char* filename)
 	n = t.GetInt();
 	m_triangles.resize(n);
 
-	int i;
+	unsigned i;
 	for (i=0; i<m_vertices.size(); i++)
 	{
 		t.Seek("*MESH_VERTEX");
-		if (t.GetInt()==i)
+		if (t.GetInt()== (int) i)
 		{
 			// MAX TO OPENGL CONVERSION: +x,+y,+z -> -x,+z,+y
 			m_vertices[i].x=-t.GetFloat();
@@ -47,7 +54,7 @@ bool CASEModel::load(const char* filename)
 	for (i=0;i<m_triangles.size(); i++)
 	{
 		t.Seek("*MESH_FACE");
-		if (t.GetInt()==i)
+		if (t.GetInt()== (int) i)
 		{
 			t.Seek("A:");
 			m_triangles[i].a=t.GetInt();
@@ -66,7 +73,7 @@ void CASEModel::render() const
 	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
     glColor3f(1,1,1);
 	glBegin(GL_TRIANGLES);
-	int i;
+    unsigned i;
 	for (i=0;i<m_triangles.size();i++)
 	{
 		const triangle & t = m_triangles[i];
@@ -87,7 +94,7 @@ void CASEModel::render() const
 	glEnd();
 }
 
-box3f CASEModel::getBoundingBox() const {
+box3f CASEModel::get_BBox() const {
     if (m_vertices.size() == 0) {
         return box3f(0,0,0,0,0,0);
     }

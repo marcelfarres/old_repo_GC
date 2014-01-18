@@ -10,11 +10,13 @@
 
 #include "box3f.h"
 
+#include "octree.h"
 // global libs
+#ifdef _WIN32
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
 #pragma comment(lib, "glut32.lib")
-
+#endif
 // global variables
 vector3f g_vEye(0,1,5);
 vector3f g_vLook(0,0,-1);
@@ -27,6 +29,7 @@ int g_width, g_height;
 // the mesh model
 CASEModel g_model;
 box3f box;
+Octree *o;
 
 // local defines
 #define LEFTMOUSE 0
@@ -119,7 +122,7 @@ void display(void)
 
 	// draw 3d model
 	g_model.render();
-	box.render();
+	o->render();
 
 	// ...
 	//glutWireCube(1);
@@ -233,7 +236,7 @@ int main(int argc, char** argv)
 	//g_model.load("data\\teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
-	box = g_model.getBoundingBox();
+    o = new Octree(g_model);
 	glutSwapBuffers();
 	glutMainLoop();
 	return 0;

@@ -1,21 +1,45 @@
 #pragma once
 #include <vector>
-#include"ase.h"
-class Octree
-{
-public:
-	Octree(const std::vector<triangle> t);
-	~Octree();
-	void make_root();
+#include "ase.h"
+#include "box3f.h"
 
-	void build_octree();
+class OctreeNode;
+
+class Octree {
+public:
+    const std::vector<triangle> &triangles;
+    Octree(const CASEModel & m);
+    ~Octree();
+    
+    vector3f get_vertex(unsigned int i) const;
+
+    void render() const;
+    int max_depth;
+    int min_tri;
+
 private:
-	int max_depth;
-	int max_tri; 
-	const std::vector<triangle> &triangles;
+    OctreeNode *root_node;
+    CASEModel model;
+};
+
+class OctreeNode {
+public:
+	OctreeNode(const Octree *r, int d, int t);
+	~OctreeNode();
+
+    const Octree* root;
+    void add_triangle(int idx);
+	void build_octree();
+    void set_BBox(box3f b);
+    void render() const;
+private:
+    box3f BBox;
+    int depth;
+	int min_tri;
+    int n_tri; 
 	std::vector<int> triangle_references;
-	Octree* children[8];
-	Octree* parent;
+	OctreeNode* children[8];
+	OctreeNode* parent;
 
 };
 

@@ -27,6 +27,8 @@ class CASEModel
 {
 public:
 	CASEModel();
+    const std::vector<triangle> & getTriangles() const;
+    const vector3f get_vertex(unsigned int i) const;
 
 public:
 	// primary load model method
@@ -35,7 +37,7 @@ public:
 	// gl render
 	void render() const;
 
-    box3f getBoundingBox() const;
+    box3f get_BBox() const;
 
 protected:
 	std::vector<vector3f> m_vertices;
