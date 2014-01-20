@@ -228,7 +228,7 @@ int main(int argc, char** argv)
 	glutDisplayFunc(display);
 	glutKeyboardFunc(parsekey);
 	glutSpecialFunc(parsekey_special);
-	glutReshapeFunc(reshape);
+	glutReshapeFunc(onReshape);
 	glutIdleFunc(idle);
 	glutMouseFunc(mouse);
 	glutMotionFunc(motion);
