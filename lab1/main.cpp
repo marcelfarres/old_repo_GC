@@ -7,7 +7,7 @@
 #include "ase.h"
 #include "vector3f.h"
 #include "matrix4x4f.h"
-
+#include "input.h"
 #include "box3f.h"
 
 // global libs
@@ -23,6 +23,7 @@ vector3f g_vUp(0,1,0);
 int g_buttons[3];
 int g_mouse_x,g_mouse_y;
 int g_width, g_height;
+input inputinstance;
 
 // the mesh model
 CASEModel g_model;
@@ -132,12 +133,15 @@ void display(void)
 	glutSwapBuffers();
 }
 
-void reshape(int w, int h){
-	g_width = w;
-	g_height = h;
-	glMatrixMode (GL_MODELVIEW);
-	glViewport (0, 0, w, h);
+void onReshape(int w, int h){
+	inputinstance.onReshape(w, h);
 }
+//void reshape(int w, int h){
+//	g_width = w;
+//	g_height = h;
+//	glMatrixMode (GL_MODELVIEW);
+//	glViewport (0, 0, w, h);
+//}
 
 void parsekey(unsigned char key, int x, int y){
 	switch (key)
@@ -236,6 +240,7 @@ int main(int argc, char** argv)
 	box = g_model.getBoundingBox();
 	glutSwapBuffers();
 	glutMainLoop();
+	glutReshapeFunc(onReshape);
 	return 0;
 }
 
