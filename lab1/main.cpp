@@ -1,8 +1,8 @@
 #include <iostream>
 
 // global includes
-#include "GL/glew.h"
 #include "GL/glut.h"
+#include "GL/gl.h"
 
 // local includes
 #include "ase.h"
