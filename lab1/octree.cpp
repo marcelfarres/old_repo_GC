@@ -69,6 +69,7 @@ void OctreeNode::build_octree() {
                   i&1?center.x:BBox.left,
                   i&2?center.y:BBox.bottom,
                   i&4?center.z:BBox.back); 
+        cout << box;
         children[i]->set_BBox(box);
 
     }

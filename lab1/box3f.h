@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include "vector3f.h"
 // Top is in the positive Y
 // Right is positive X
@@ -18,6 +19,6 @@ public:
     bool contains(const vector3f & v) const;
     int get_octant(const vector3f &v) const;
     vector3f get_center() const;
-
+    friend std::ostream& operator<<(std::ostream& os, const box3f& b); 
 };
 
