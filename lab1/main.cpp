@@ -88,22 +88,46 @@ void display(void)
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glShadeModel(GL_FLAT);
-
-	// setup camera
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
-	gluPerspective(60,1.33,1,200);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+        // setup camera
+        glMatrixMode (GL_PROJECTION);
+        glLoadIdentity ();
+        gluPerspective(60,1.33,1,200);
+        glMatrixMode(GL_MODELVIEW);
+        glLoadIdentity();
  
-	g_vLook.normalize();
+        matrix4x4f view;
+        view.identity();
 
-	g_vUp = crossProduct(g_vRight, g_vLook);
-	g_vUp.normalize();
+        g_vLook.normalize();
 
-    gluLookAt(g_vEye.x, g_vEye.y, g_vEye.z,
-             g_vLook.x, g_vLook.y, g_vLook.z,
-            0, 1, 0);
+        g_vUp = vector3f(0,1,0);
+        g_vRight = crossProduct(g_vLook, g_vUp);
+        g_vRight.normalize();
+
+        g_vUp = crossProduct(g_vRight, g_vLook);
+        g_vUp.normalize();
+
+        view.m[0] =  g_vRight.x;
+        view.m[1] =  g_vUp.x;
+        view.m[2] = -g_vLook.x;
+        view.m[3] =  0.0f;
+
+        view.m[4] =  g_vRight.y;
+        view.m[5] =  g_vUp.y;
+        view.m[6] = -g_vLook.y;
+        view.m[7] =  0.0f;
+
+        view.m[8]  =  g_vRight.z;
+        view.m[9]  =  g_vUp.z;
+        view.m[10] = -g_vLook.z;
+        view.m[11] =  0.0f;
+
+        view.m[12] = -dotProduct(g_vRight, g_vEye);
+        view.m[13] = -dotProduct(g_vUp, g_vEye);
+        view.m[14] =  dotProduct(g_vLook, g_vEye);
+        view.m[15] =  1.0f;
+
+        glMultMatrixf( view.m );
 
 	//render here
 

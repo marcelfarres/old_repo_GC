@@ -1,8 +1,9 @@
 #include "octree.h"
 #include "ase.h"
+#include <cassert>
 
 Octree::Octree(const CASEModel &m) : triangles(m.getTriangles()), model(m){
-	max_depth = 1;
+	max_depth = 4;
 	min_tri = 10;
     root_node = new OctreeNode(this, max_depth, min_tri);
     for(unsigned i = 0; i < triangles.size(); i++) {
@@ -61,7 +62,6 @@ void OctreeNode::build_octree() {
         return;
     }
     vector3f center = BBox.get_center();
-    std::cout << "BBox:" << BBox << std::endl;
     for (int i = 0; i < 8; i++) {
         children[i] = new OctreeNode(root, depth-1, min_tri);
         box3f box(i&1?BBox.right:center.x,
@@ -70,7 +70,6 @@ void OctreeNode::build_octree() {
                   i&1?center.x:BBox.left,
                   i&2?center.y:BBox.bottom,
                   i&4?center.z:BBox.back); 
-        std::cout << box;
         children[i]->set_BBox(box);
 
     }
@@ -86,7 +85,13 @@ void OctreeNode::build_octree() {
             octant == BBox.get_octant(root->get_vertex(t.c))) {
             // insert the triangle in said octant.
             children[octant]->add_triangle(idx);
+            std::cout << octant << std::endl;
+            std::cout << children[octant]->BBox << std::endl;
+            assert(children[octant]->BBox.contains(root->get_vertex(t.c)));
         }
+    }
+    for (int i = 0; i < 8; i++) {
+        children[i]->build_octree();
     }
 }
 
