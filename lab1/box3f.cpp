@@ -58,7 +58,7 @@ vector3f box3f::get_center() const {
 return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + right)*0.5);
 }
 
-std::ostream& operator<<(std::ostream& os, const box3f& b) {
+friend std::ostream& operator<<(std::ostream& os, const box3f& b) {
     os << "<box3f (";
     for (int i = 0; i < 5; i++) {
         os << b.coords[i] << ", ";
