@@ -1,4 +1,3 @@
-#pragma once
 #include "input.h"
 
 using namespace std;
