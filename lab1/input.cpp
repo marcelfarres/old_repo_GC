@@ -43,7 +43,7 @@ void input::onReshape(int w, int h)
 
 void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 	switch (Key){
-	case '+': SetZoom(-1);              break; // Zoom IN 
+	case '+': SetZoom(-1); std::cout << "working ";           break; // Zoom IN 
 	case '-': SetZoom(1);              break; // Zoom OUT
 	case ',': SetDolly(-1);             break; // Dolly IN 
 	case '.': SetDolly(1);             break; // Dolly OUT
