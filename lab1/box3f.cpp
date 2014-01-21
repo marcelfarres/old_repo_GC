@@ -6,7 +6,7 @@
 
 box3f::box3f() {};
 
-box3f::box3f(float r, float t, float f, float b, float l, float bk) :
+box3f::box3f(float r, float t, float f, float l, float b, float bk) :
     right(r), top(t), front(f),
     left(l), bottom(b), back(bk)
 {};
@@ -55,13 +55,13 @@ int box3f::get_octant(const vector3f &v) const {
 }
 
 vector3f box3f::get_center() const {
-return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + right)*0.5);
+return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + back)*0.5);
 }
 
 std::ostream& operator<<(std::ostream& os, const box3f& b) {
     os << "<box3f (";
     for (int i = 0; i < 5; i++) {
-        os << b.coords[i] << ", ";
+        os << b.coords[i] << "\t";
     }
    os << b.coords[5] << ")>\n"; 
    return os;

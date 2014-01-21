@@ -61,6 +61,7 @@ void OctreeNode::build_octree() {
         return;
     }
     vector3f center = BBox.get_center();
+    std::cout << "BBox:" << BBox << std::endl;
     for (int i = 0; i < 8; i++) {
         children[i] = new OctreeNode(root, depth-1, min_tri);
         box3f box(i&1?BBox.right:center.x,
