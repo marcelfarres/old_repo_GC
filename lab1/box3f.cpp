@@ -59,10 +59,10 @@ return vector3f((left + right)*0.5, (top + bottom)*0.5, (front + right)*0.5);
 }
 
 friend std::ostream& operator<<(std::ostream& os, const box3f& b) {
-    ostream << "<box3f (";
+    os << "<box3f (";
     for (int i = 0; i < 5; i++) {
         os << b.coords[i] << ", ";
     }
-   os << coords[5] << ")>\n"; 
+   os << b.coords[5] << ")>\n"; 
    return os;
 }
