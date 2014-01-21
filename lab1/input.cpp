@@ -1,3 +1,4 @@
+#pragma once
 #include "input.h"
 
 using namespace std;
@@ -36,7 +37,7 @@ void input::onReshape(int w, int h)
 {
 	width = w;
 	height = h;
-	glViewport(0, 0, width, height);
+	//glViewport(0, 0, width, height);
 	updateProjection();
 }
 
