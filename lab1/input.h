@@ -1,12 +1,17 @@
 #pragma once
-
+// global includes
+#include <stdlib.h>
+#include "GL/glut.h"
+#include "GL/gl.h"
 #include "glm/glm.hpp"
 #include "glm/gtc/matrix_transform.hpp"
-#include <string>
-#include <cstdlib>
-#include <iostream>
-#include <algorithm>
-#include <vector>
+
+
+//#include <string>
+//#include <cstdlib>
+//#include <iostream>
+//#include <algorithm>
+//#include <vector>
 
 class input
 {
