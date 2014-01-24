@@ -49,9 +49,9 @@ bool box3f::contains(const vector3f &v) const {
 
 int box3f::get_octant(const vector3f &v) const {
     vector3f center = get_center();
-    return ((v.x > center.x) << 2) |
+    return ((v.x < center.x) << 2) |
            ((v.y > center.y) << 1) |
-           (v.z > center.y);
+           (v.z < center.z);
 }
 
 vector3f box3f::get_center() const {

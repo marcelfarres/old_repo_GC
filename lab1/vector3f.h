@@ -10,6 +10,7 @@
 #define _VECTOR3F_H_
 
 #include <cmath>
+#include <iostream>
 
 class vector3f
 {
@@ -48,6 +49,7 @@ public:
 	vector3f operator - (void) const;
 
 	operator const float*() const {return &x;};
+    friend std::ostream & operator<<(std::ostream& os, const vector3f &v);
 };
 
 float distance(const vector3f &v1, const vector3f &v2);

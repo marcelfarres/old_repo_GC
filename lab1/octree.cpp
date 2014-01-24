@@ -84,9 +84,9 @@ void OctreeNode::build_octree() {
         if (octant == BBox.get_octant(root->get_vertex(t.b)) &&
             octant == BBox.get_octant(root->get_vertex(t.c))) {
             // insert the triangle in said octant.
+            std::cout << "Vertex " << root->get_vertex(t.a) << " is in octant "<< octant;
+            std::cout << " of box " << BBox << " (is in box) " << children[octant]->BBox << std::endl;
             children[octant]->add_triangle(idx);
-            std::cout << octant << std::endl;
-            std::cout << children[octant]->BBox << std::endl;
             assert(children[octant]->BBox.contains(root->get_vertex(t.c)));
         }
     }

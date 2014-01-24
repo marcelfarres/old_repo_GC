@@ -1,4 +1,5 @@
 #include "vector3f.h"
+#include <iostream>
 
 vector3f::vector3f( float x_, float y_, float z_ )
 {
@@ -160,4 +161,9 @@ vector3f& vector3f::operator -= ( const vector3f &other )
     z -= other.z;
 
     return *this;
+}
+
+std::ostream & operator<<(std::ostream& os, const vector3f &v) {
+    os << "(" << v.x << ", " << v.y << ", " << v.z <<")";
+    return os;
 }
