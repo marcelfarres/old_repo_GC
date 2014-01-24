@@ -19,10 +19,10 @@
 #pragma comment(lib, "glut32.lib")
 #endif
 // global variables
-vector3f g_vEye(0,1,5);
-vector3f g_vLook(0,0,-1);
-vector3f g_vRight(-1,0,0);
-vector3f g_vUp(0,1,0);
+//vector3f g_vEye(0,1,5);
+//vector3f g_vLook(0,0,-1);
+//vector3f g_vRight(-1,0,0);
+//vector3f g_vUp(0,1,0);
 int g_buttons[3];
 int g_mouse_x,g_mouse_y;
 int g_width, g_height;
@@ -59,6 +59,7 @@ void help(){
 	glLoadIdentity();
 	gluOrtho2D(0,1000,0,1000);
 
+	// REESCRIURE
 	drawString(690,10,"Press UP/DOWN/LEFT/RIGHT to navigate");
 	drawString(690,40,"Press LEFT BUTTON to perform looking");
 }
@@ -87,6 +88,7 @@ void init(void){
 
 
 }
+
 void display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
@@ -95,45 +97,39 @@ void display(void){
 	//glShadeModel(GL_FLAT);
 
 	// setup camera
-	glMatrixMode (GL_PROJECTION);
-	glLoadIdentity ();
-	gluPerspective(60,1.33,1,200);
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	inputinstance.updateProjection();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
  
-	g_vLook.normalize();
+	//g_vLook.normalize();
 
-	g_vUp = crossProduct(g_vRight, g_vLook);
-	g_vUp.normalize();
+	//g_vUp = crossProduct(g_vRight, g_vLook);
+	//g_vUp.normalize();
 
-    gluLookAt(g_vEye.x, g_vEye.y, g_vEye.z,
-             g_vLook.x, g_vLook.y, g_vLook.z,
-            0, 1, 0);
+ //   gluLookAt(g_vEye.x, g_vEye.y, g_vEye.z,
+ //            g_vLook.x, g_vLook.y, g_vLook.z,
+ //           0, 1, 0);
 
 	//render here
 
 	//draw  a square centered at 0,0
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_QUADS);
-
 	glVertex3f(-3,0,3);
 	glVertex3f(3,0,3);
 	glVertex3f(3, 0, -3);
 	glVertex3f(-3, 0, -3);
-
 	glEnd();
 
     // draw axis centered at 0,0,0
+	drawAxis();
 
-    drawAxis();
-
-	// draw 3d model
+	// draw model
 	g_model.render();
+
+	// draw octre
 	o->render();
 
-	// ...
-	//glutWireCube(1);
-	// dibuixar un cub on cada banda té 1 de llarg
 	//glDisable(GL_LIGHTING);
 	help();
 	
@@ -189,32 +185,32 @@ void idle(){
 	display();
 }
 
-void motion(int x, int y){
-	int dx = x - g_mouse_x;
-	int dy = y - g_mouse_y;
-
-	if (g_buttons[LEFTMOUSE] == 1)
-	{
-		matrix4x4f matRotation;
-		if( dy != 0 )
-		{
-			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
-			matRotation.transformVector( &g_vLook );
-			matRotation.transformVector( &g_vUp );
-		}
-
-		if( dx != 0 )
-		{
-			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
-			matRotation.transformVector( &g_vLook );
-			matRotation.transformVector( &g_vUp );
-		}
-
-	}
-
-	g_mouse_x = x;
-	g_mouse_y = y;
-}
+//void motion(int x, int y){
+//	int dx = x - g_mouse_x;
+//	int dy = y - g_mouse_y;
+//
+//	if (g_buttons[LEFTMOUSE] == 1)
+//	{
+//		matrix4x4f matRotation;
+//		if( dy != 0 )
+//		{
+//			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
+//			matRotation.transformVector( &g_vLook );
+//			matRotation.transformVector( &g_vUp );
+//		}
+//
+//		if( dx != 0 )
+//		{
+//			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
+//			matRotation.transformVector( &g_vLook );
+//			matRotation.transformVector( &g_vUp );
+//		}
+//
+//	}
+//
+//	g_mouse_x = x;
+//	g_mouse_y = y;
+//}
 
 void mouse(int button, int state, int x, int y)
 {
@@ -247,13 +243,14 @@ int main(int argc, char** argv)
 	glutReshapeFunc(onReshape);
 	glutIdleFunc(idle);
 	glutMouseFunc(mouse);
-	glutMotionFunc(motion);
+	//glutMotionFunc(motion);
 
 	// load a model
 	//g_model.load("data\\teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
     o = new Octree(g_model);
+	
 	glutSwapBuffers();
 	glutMainLoop();
 	glutReshapeFunc(onReshape);

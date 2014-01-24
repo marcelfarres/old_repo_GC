@@ -22,6 +22,9 @@ public:
 	glm::mat4 Projection;
 	glm::mat4 View;
 	glm::vec3 Camera;
+	glm::mat4 model;
+	float dolly;
+	float zoom;
 
 	// Fun
 	input();
@@ -34,12 +37,12 @@ public:
 	void MyKeyboardFunc(int Key, int x, int y);
 	void SetZoom(float in_zoom);
 	void SetDolly(float in_dolly);
+	void MoveObj(float in_x, float in_y, float in_z);
+	void RotObj(float in_x, float in_y, float in_z, float dir);
 
 private:
 	float sf_trlz[4];
 	int max_col;
-	float zoom;
-	float dolly;
 	glm::vec3 direction;
 };
 
