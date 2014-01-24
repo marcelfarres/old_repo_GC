@@ -3,7 +3,7 @@
 #include <cassert>
 
 Octree::Octree(const CASEModel &m) : triangles(m.getTriangles()), model(m){
-	max_depth = 4;
+	max_depth = 8;
 	min_tri = 10;
     root_node = new OctreeNode(this, max_depth, min_tri);
     for(unsigned i = 0; i < triangles.size(); i++) {
@@ -32,8 +32,10 @@ OctreeNode::OctreeNode(const Octree *r, int d, int min_t) : root(r), depth(d), m
     }
 }
 void OctreeNode::add_triangle(int idx) {
-    n_tri ++;
-    triangle_references.push_back(idx);
+    if (triangle_references.empty() || triangle_references.back() != idx) {
+        n_tri ++;
+        triangle_references.push_back(idx);
+    }
 }
 
 void OctreeNode::render() const {
@@ -64,12 +66,12 @@ void OctreeNode::build_octree() {
     vector3f center = BBox.get_center();
     for (int i = 0; i < 8; i++) {
         children[i] = new OctreeNode(root, depth-1, min_tri);
-        box3f box(i&1?BBox.right:center.x,
+        box3f box(i&4?BBox.right:center.x,
                   i&2?BBox.top:center.y,
-                  i&4?BBox.front:center.z,
-                  i&1?center.x:BBox.left,
+                  i&1?BBox.front:center.z,
+                  i&4?center.x:BBox.left,
                   i&2?center.y:BBox.bottom,
-                  i&4?center.z:BBox.back); 
+                  i&1?center.z:BBox.back); 
         children[i]->set_BBox(box);
 
     }
@@ -77,18 +79,11 @@ void OctreeNode::build_octree() {
         int idx = triangle_references.back();
         triangle_references.pop_back();
         triangle t = root->triangles[idx];
-        // TODO do something with the intersecting triangles.
         
-        // if all three vertices are in the same octant,
-        int octant = BBox.get_octant(root->get_vertex(t.a));
-        if (octant == BBox.get_octant(root->get_vertex(t.b)) &&
-            octant == BBox.get_octant(root->get_vertex(t.c))) {
-            // insert the triangle in said octant.
-            std::cout << "Vertex " << root->get_vertex(t.a) << " is in octant "<< octant;
-            std::cout << " of box " << BBox << " (is in box) " << children[octant]->BBox << std::endl;
-            children[octant]->add_triangle(idx);
-            assert(children[octant]->BBox.contains(root->get_vertex(t.c)));
-        }
+        children[BBox.get_octant(root->get_vertex(t.a))]->add_triangle(idx);
+        children[BBox.get_octant(root->get_vertex(t.b))]->add_triangle(idx);
+        children[BBox.get_octant(root->get_vertex(t.c))]->add_triangle(idx);
+
     }
     for (int i = 0; i < 8; i++) {
         children[i]->build_octree();
