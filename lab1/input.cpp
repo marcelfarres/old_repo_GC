@@ -50,6 +50,9 @@ void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 	case 'Z': case 'z': reset();        break; // Reset to defaults
 	};
 }
+void input::MyKeyboardFunc(int Key, int x, int y){
+
+}
 
 void input::updateProjection(){
 	Projection = glm::perspective(zoom, width / (float)height, 0.1f, 1000.0f);

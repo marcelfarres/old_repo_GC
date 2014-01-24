@@ -62,6 +62,7 @@ void help(){
 	drawString(690,10,"Press UP/DOWN/LEFT/RIGHT to navigate");
 	drawString(690,40,"Press LEFT BUTTON to perform looking");
 }
+
 void drawAxis() {
     // XYZ correspond to RGB. 
     // Negative coordinates are the inverse color.
@@ -81,8 +82,12 @@ void drawAxis() {
         glVertex3f(0,0,-2);
     glEnd();
 }
-void display(void)
-{
+
+void init(void){
+
+
+}
+void display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_LIGHTING);
@@ -147,31 +152,38 @@ void onReshape(int w, int h){
 //	glViewport (0, 0, w, h);
 //}
 
-void parsekey(unsigned char key, int x, int y){
-	switch (key)
-	{
-		case 27: exit(0); break;
-		case 13: break;
-	}
+void onKeyboard(unsigned char k, int x, int y){
+	inputinstance.MyKeyboardFunc(k, x, y);
 }
 
-void parsekey_special(int key, int x, int y){
-	switch (key)
-	{
-		case GLUT_KEY_UP:
-			g_vEye += (g_vLook)*0.05f;
-			break;
-		case GLUT_KEY_DOWN:
-			g_vEye -= (g_vLook)*0.05f;
-			break;
-		case GLUT_KEY_RIGHT:
-			g_vEye += (g_vRight)*0.05f;
-			break;
-		case GLUT_KEY_LEFT:	
-			g_vEye -= (g_vRight)*0.05f;
-			break;
-	}
+void onKeyboard(int k, int x, int y){
+	inputinstance.MyKeyboardFunc(k, x, y);
 }
+//void parsekey(unsigned char key, int x, int y){
+//	switch (key)
+//	{
+//		case 27: exit(0); break;
+//		case 13: break;
+//	}
+//}
+//
+//void parsekey_special(int key, int x, int y){
+//	switch (key)
+//	{
+//		case GLUT_KEY_UP:
+//			g_vEye += (g_vLook)*0.05f;
+//			break;
+//		case GLUT_KEY_DOWN:
+//			g_vEye -= (g_vLook)*0.05f;
+//			break;
+//		case GLUT_KEY_RIGHT:
+//			g_vEye += (g_vRight)*0.05f;
+//			break;
+//		case GLUT_KEY_LEFT:	
+//			g_vEye -= (g_vRight)*0.05f;
+//			break;
+//	}
+//}
 
 void idle(){
 	display();
@@ -230,8 +242,8 @@ int main(int argc, char** argv)
 	glutInitWindowSize(640, 480);
 	glutCreateWindow("Practica 1. Creacio d un octree a partir d un mesh");
 	glutDisplayFunc(display);
-	glutKeyboardFunc(parsekey);
-	glutSpecialFunc(parsekey_special);
+	glutKeyboardFunc(onKeyboard);
+	glutSpecialFunc(onKeyboard);
 	glutReshapeFunc(onReshape);
 	glutIdleFunc(idle);
 	glutMouseFunc(mouse);

@@ -31,6 +31,7 @@ public:
 	void updateView();
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
+	void MyKeyboardFunc(int Key, int x, int y);
 	void SetZoom(float in_zoom);
 	void SetDolly(float in_dolly);
 
