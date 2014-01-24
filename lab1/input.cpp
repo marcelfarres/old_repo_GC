@@ -25,7 +25,7 @@ input::input(){
 
 void input::reset(){
 	// init view
-	dolly = 70.0;
+	dolly = 10.0;
 	updateView();
 
 	// init proj
@@ -58,6 +58,7 @@ void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 	case 'g': RotObj(0, 1, 0, -1);   break; // Rotate Y - OBJ 
 	case 'y': RotObj(0, 0, 1, 1);   break; // Rotate Z + OBJ
 	case 'h': RotObj(0, 0, 1, -1);   break; // Rotate Z + OBJ  
+	case 'Z': case 'z': reset();        break; // Reset to defaults
 	};
 }
 
@@ -72,10 +73,13 @@ void input::updateProjection(){
 }
 
 void input::updateView(){
-	// The up vector is orthogonal to direction, and with the same Y
-	View = glm::lookAt(direction * dolly, glm::vec3(0.0f),
-		glm::vec3(0, 1, 0));
-	Camera = direction * dolly;
+	glMatrixMode(GL_PROJECTION);
+	gluLookAt(direction[0] * dolly, direction[1] * dolly, direction[2] * dolly,
+		0.f, 0.f, 0.f, 
+		0, 1, 0);
+
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
 }
 
 void input::SetZoom(float in_zoom){

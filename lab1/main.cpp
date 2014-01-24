@@ -19,10 +19,6 @@
 #pragma comment(lib, "glut32.lib")
 #endif
 // global variables
-//vector3f g_vEye(0,1,5);
-//vector3f g_vLook(0,0,-1);
-//vector3f g_vRight(-1,0,0);
-//vector3f g_vUp(0,1,0);
 int g_buttons[3];
 int g_mouse_x,g_mouse_y;
 int g_width, g_height;
@@ -98,17 +94,7 @@ void display(void){
 
 	// setup camera
 	inputinstance.updateProjection();
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
- 
-	//g_vLook.normalize();
-
-	//g_vUp = crossProduct(g_vRight, g_vLook);
-	//g_vUp.normalize();
-
- //   gluLookAt(g_vEye.x, g_vEye.y, g_vEye.z,
- //            g_vLook.x, g_vLook.y, g_vLook.z,
- //           0, 1, 0);
+	inputinstance.updateView();
 
 	//render here
 
