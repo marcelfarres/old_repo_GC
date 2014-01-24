@@ -6,10 +6,8 @@
 // local includes
 #include "ase.h"
 #include "vector3f.h"
-#include "matrix4x4f.h"
 #include "input.h"
 #include "box3f.h"
-
 #include "octree.h"
 // global libs
 

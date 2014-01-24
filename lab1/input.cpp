@@ -82,6 +82,36 @@ void input::updateView(){
 	//glLoadIdentity();
 }
 
+void input::updateModel(){
+	glMatrixMode(GL_MODELVIEW);
+	glLoadIdentity();
+
+	matrix4x4f view;
+	view.identity();
+
+	view.m[0] = model[0][0];
+	view.m[1] = model[0][1];
+	view.m[2] = model[0][2];
+	view.m[3] = model[0][3];
+
+	view.m[4] = model[1][0];
+	view.m[5] = model[1][1];
+	view.m[6] = model[1][2];
+	view.m[7] = model[1][3];
+
+	view.m[8] = model[2][0];
+	view.m[9] = model[2][1];
+	view.m[10] = model[2][2];
+	view.m[11] = model[2][3];
+
+	view.m[12] = model[3][0];
+	view.m[13] = model[3][1];
+	view.m[14] = model[3][2];
+	view.m[15] = model[3][3];
+
+	glMultMatrixf(view.m);
+}
+
 void input::SetZoom(float in_zoom){
 	zoom = zoom + in_zoom * sf_trlz[3];
 	zoom = MIN(zoom, 150);
