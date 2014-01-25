@@ -66,3 +66,6 @@ std::ostream& operator<<(std::ostream& os, const box3f& b) {
    os << b.coords[5] << ")>\n"; 
    return os;
 }
+bool box3f::intersects(const vector3f & point, const vector3f & vector) const {
+    return false;
+}
