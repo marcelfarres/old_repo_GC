@@ -75,8 +75,8 @@ bool box3f::intersects(const vector3f & point, const vector3f & vector) const {
     tfar  = FLT_MAX;
     for (int i = 0; i < 3; i++) {
         if( vector.t[i] == 0) continue; 
-        t1 = (vector.coords[i] - point.t[i]) / vector.t[i];
-        t2 = (vector.coords[i+3] - point.t[i]) / vector.t[i];
+        t1 = (coords[i] - point.t[i]) / vector.t[i];
+        t2 = (coords[i+3] - point.t[i]) / vector.t[i];
         if (t1 > t2) std::swap(t1,t2); 
         if (t1 > tnear) tnear = t1;
         if (t2 < tfar) tfar = t2;
