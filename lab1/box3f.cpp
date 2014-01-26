@@ -69,14 +69,15 @@ std::ostream& operator<<(std::ostream& os, const box3f& b) {
    return os;
 }
 // from http://www.siggraph.org/education/materials/HyperGraph/raytrace/rtinter3.htm
-bool box3f::intersects(const vector3f & point, const vector3f & vector) const {
+bool box3f::intersects(const vector3f & point, const vector3f & direction) const {
     float tnear, tfar, t1, t2;
     tnear = FLT_MIN;
     tfar  = FLT_MAX;
     for (int i = 0; i < 3; i++) {
-        if( vector.t[i] == 0) continue; 
-        t1 = (coords[i] - point.t[i]) / vector.t[i];
-        t2 = (coords[i+3] - point.t[i]) / vector.t[i];
+        //TODO: test against epsilon, remember these are floats!
+        if( direction.t[i] == 0) continue; 
+        t1 = (coords[i] - point.t[i]) / direction.t[i];
+        t2 = (coords[i+3] - point.t[i]) / direction.t[i];
         if (t1 > t2) std::swap(t1,t2); 
         if (t1 > tnear) tnear = t1;
         if (t2 < tfar) tfar = t2;
