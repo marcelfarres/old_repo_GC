@@ -1,6 +1,13 @@
 #include "octree.h"
 #include "ase.h"
 #include <cassert>
+#include <cmath>
+#define EPSILON 0.00001
+
+inline bool float_is_zero(float f) {
+    return fabs(f) < EPSILON;
+}
+
 
 Octree::Octree(const CASEModel &m) : triangles(m.getTriangles()), model(m){
 	max_depth = 8;
@@ -119,3 +126,39 @@ void OctreeNode::build_octree() {
     }
 }
 
+// from http://en.wikipedia.org/wiki/M%C3%B6ller%E2%80%93Trumbore_intersection_algorithm
+bool triangle_intersects(const vector3f & v1,
+                         const vector3f & v2,
+                         const vector3f & v3,
+                         const vector3f & point,
+                         const vector3f & direction) {
+
+    vector3f edge1 = v1 - v2;
+    vector3f edge2 = v3 - v1;
+    vector3f P = crossProduct(direction, edge2);
+    float det = dotProduct(edge1, P);
+    if(float_is_zero(det)) {
+        // ray lies in plane of the triangle
+        return false;
+    }
+    float inv_det = 1.0f / det;
+    
+    vector3f T = point - v1;
+    float u = dotProduct(T,P) * inv_det;
+
+    if (u < 0 || u > 1) {
+        return false;
+    }
+    vector3f Q = crossProduct(T, edge1);
+    v = dotProduct(direction, Q) * inv_det;
+    if(v < 0.f || u + v  > 1.f) {
+        return false;
+    }
+
+    float t = dotProduct(edge2, Q) * inv_det;
+    if (t > EPSILON) {
+        return true;
+    }
+
+    return false;
+}

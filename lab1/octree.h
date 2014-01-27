@@ -45,3 +45,8 @@ private:
 
 };
 
+bool triangle_intersects(const vector3f & v1,
+                         const vector3f & v2,
+                         const vector3f & v3,
+                         const vector3f & point,
+                         const vector3f & direction);
