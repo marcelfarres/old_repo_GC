@@ -1,6 +1,5 @@
 #pragma once
 // global includes
-#include "matrix4x4f.h" // AIXO ÉS EL QUE HO FA PETAR TOT ! 
 #include <stdlib.h>
 #include "GL/glut.h"
 #include "GL/gl.h"
@@ -8,6 +7,7 @@
 
 #include "glm/gtc/matrix_transform.hpp"
 #include <iostream>
+#include "matrix4x4f.h" // AIXO ÉS EL QUE HO FA PETAR TOT ! 
 
 //#include <string>
 //#include <cstdlib>
