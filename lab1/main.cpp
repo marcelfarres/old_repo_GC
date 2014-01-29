@@ -94,6 +94,7 @@ void display(void){
 	// setup camera
 	inputinstance.updateProjection();
 	inputinstance.updateView();
+	inputinstance.updateModel();
 
 	//render here
 
