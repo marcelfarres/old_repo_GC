@@ -51,7 +51,7 @@ void OctreeNode::add_triangle(int idx) {
 }
 
 const triangle * const  OctreeNode::get_intersecting_triangle(const vector3f & point, const vector3f & direction) const {
-    if (not BBox.intersects(point, direction)) {
+    if (! BBox.intersects(point, direction)) {
         // TODO: Move this check to Octree for speed.
         return NULL;
     }
@@ -150,7 +150,7 @@ bool triangle_intersects(const vector3f & v1,
         return false;
     }
     vector3f Q = crossProduct(T, edge1);
-    v = dotProduct(direction, Q) * inv_det;
+    float v = dotProduct(direction, Q) * inv_det;
     if(v < 0.f || u + v  > 1.f) {
         return false;
     }
