@@ -16,9 +16,10 @@ class vector3f
 {
 public:
 
-    float x;
-    float y;
-    float z;
+    union {
+        struct { float x, y, z; };
+        struct { float t[3]; };
+    };
 
     vector3f(void)
     {
