@@ -16,8 +16,7 @@ input::input(){
 	// init params scale factor (Borrar si al final no es fan servir tots ! )
 	sf_trlz[0] = 1.0f;      // Translate and dolly
 	sf_trlz[1] = 5.0f;      // Rotate (degrees)
-	sf_trlz[2] = 0.1f;      // Light
-	sf_trlz[3] = 1.0f;      // Zoom
+	sf_trlz[2] = 1.0f;      // Zoom
 
 	reset();
 }
@@ -66,7 +65,7 @@ void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 }
 
 void input::MyKeyboardFunc(int Key, int x, int y){
-
+	// futer worck with arrows keys
 }
 
 void input::updateProjection(){
@@ -113,7 +112,7 @@ void input::updateModel(){
 }
 
 void input::SetZoom(float in_zoom){
-	zoom = zoom + in_zoom * sf_trlz[3];
+	zoom = zoom + in_zoom * sf_trlz[2];
 	zoom = MIN(zoom, 150);
 	zoom = MAX(zoom, 0.01);
 	updateProjection();

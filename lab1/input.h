@@ -27,7 +27,7 @@ public:
 	void RotObj(float in_x, float in_y, float in_z, float dir);
 
 private:
-	float sf_trlz[4];
+	float sf_trlz[3];
 	int max_col;
 	glm::vec3 direction;
 	int height;			// Screen height
