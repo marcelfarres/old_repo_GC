@@ -1,23 +1,15 @@
 #ifndef INPUT_H
 #define INPUT_H
-// global includes
+
 #include <stdlib.h>
 #include "GL/glut.h"
 #include "GL/gl.h"
 #include "glm/glm.hpp"
-
 #include "glm/gtc/matrix_transform.hpp"
 #include <iostream>
-#include "matrix4x4f.h" // AIXO ÉS EL QUE HO FA PETAR TOT ! 
+#include "matrix4x4f.h" 
 
-//#include <string>
-//#include <cstdlib>
-//
-//#include <algorithm>
-//#include <vector>
-
-class input
-{
+class input{
 public:
 	// Fun
 	input();

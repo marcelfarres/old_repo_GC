@@ -30,6 +30,10 @@ void input::reset(){
 	// init proj
 	zoom = 40.0;
 	updateProjection();
+
+	// init model
+	model = glm::mat4(1.0);
+	updateModel();
 }
 
 void input::onReshape(int w, int h){
@@ -76,9 +80,6 @@ void input::updateView(){
 	gluLookAt(direction[0] * dolly, direction[1] * dolly, direction[2] * dolly,
 		0.f, 0.f, 0.f, 
 		0, 1, 0);
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
 }
 
 void input::updateModel(){
