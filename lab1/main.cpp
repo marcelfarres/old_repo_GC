@@ -1,5 +1,5 @@
 #include <iostream>
-
+#include <cstring>
 // global includes
 #include "GL/glut.h"
 
