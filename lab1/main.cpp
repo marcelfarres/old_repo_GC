@@ -9,6 +9,7 @@
 #include "input.h"
 #include "box3f.h"
 #include "octree.h"
+#include "matrix4x4f.h" 
 // global libs
 
 #ifdef _WIN32

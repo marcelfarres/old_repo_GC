@@ -14,7 +14,6 @@
 #include <cmath>
 #include <cstring>
 #include <iostream>
-using namespace std;
 
 #define DEGTORAD(degree) ((degree) * (3.141592654f / 180.0f))
 #define RADTODEG(radian) ((radian) * (180.0f / 3.141592654f))
@@ -391,7 +390,7 @@ matrix4x4f matrix4x4f::invertMatrix( const matrix4x4f *matIn )
 	// Run singularity test.
 	if( det == 0.0 )
 	{
-		cout << "Warning: Call to invertMatrix produced a Singular matrix." << endl;
+		std::cout << "Warning: Call to invertMatrix produced a Singular matrix." << std::endl;
 
 		float identity[16] = 
 		{
