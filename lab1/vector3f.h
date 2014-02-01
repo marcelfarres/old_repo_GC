@@ -34,12 +34,12 @@ public:
     float normalize(void);
 
     // Operators...
-    vector3f operator + (const vector3f &other);
-    vector3f operator - (const vector3f &other);
-    vector3f operator * (const vector3f &other);
-		vector3f operator / (const vector3f &other);
+    vector3f operator + (const vector3f &other) const;
+    vector3f operator - (const vector3f &other) const;
+    vector3f operator * (const vector3f &other) const;
+		vector3f operator / (const vector3f &other) const;
 
-    vector3f operator * (const float scalar);
+    vector3f operator * (const float scalar) const;
     friend vector3f operator * (const float scalar, const vector3f &other);
     
 	vector3f& operator = (const vector3f &other);

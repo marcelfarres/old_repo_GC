@@ -2,6 +2,7 @@
 #include "ase.h"
 #include <cassert>
 #include <cmath>
+#include <cfloat>
 #define EPSILON 0.00001
 
 inline bool float_is_zero(float f) {
@@ -29,9 +30,16 @@ void Octree::render() const {
     root_node->render();
 }
 
-const triangle * const  Octree::get_intersecting_triangle(const vector3f & point, const vector3f & direction) const {
-    // TODO: something i forgot
-    return root_node->get_intersecting_triangle(point, direction);
+const triangle * const  Octree::get_intersecting_triangle(const vector3f & point, const vector3f & direction, float *distance) const {
+    float f = FLT_MAX;
+    if (root_node->get_BBox().intersects(point,direction)) {
+        return root_node->get_intersecting_triangle(point, direction, &f);
+        if (distance != NULL){
+            *distance = f;
+        }
+    }
+
+    return NULL;
 }
 
 Octree::~Octree() {
@@ -50,12 +58,22 @@ void OctreeNode::add_triangle(int idx) {
     }
 }
 
-const triangle * const  OctreeNode::get_intersecting_triangle(const vector3f & point, const vector3f & direction) const {
-    if (not BBox.intersects(point, direction)) {
-        // TODO: Move this check to Octree for speed.
-        return NULL;
+const triangle * const  OctreeNode::get_intersecting_triangle(const vector3f & point, const vector3f & direction, float * best) const {
+    
+    triangle * best_triangle = NULL;
+    best_triangle = best_triangle; 
+
+    for (int i = 0; i < 8; ++i) {
+        if (children[i] == NULL) {
+            continue;
+        }
+        else if (children[i]->get_BBox().intersects(point, direction)) {
+            children[i]->get_intersecting_triangle(point, direction, best);
+        }
     }
+    
     // TODO:
+
     // if the triangle list is not empty, then we are on one leaf node,
     // so check if any of the triangles intersect with our ray. if it
     // does, return it.
@@ -63,14 +81,10 @@ const triangle * const  OctreeNode::get_intersecting_triangle(const vector3f & p
     // else, we either are in a completely empty octree node (which
     // should have no children) or in a parent node. if in empty we
     // should return NULL, otherwise check children.
-    triangle * best_t = NULL;
-    float distance = FLT_MAX;
-    for (int i = 0; i < 8; i++) {
-       // TODO: i'm sleepy now.
-       // for each octree children check if the ray intersect its box.
-       // if it does, enter it and recursively check for the
-       // intersection.
-    }
+    // TODO: i'm sleepy now.
+    // for each octree children check if the ray intersect its box.
+    // if it does, enter it and recursively check for the
+    // intersection.
     return NULL;
 }
 
@@ -93,6 +107,10 @@ OctreeNode::~OctreeNode() {
 
 void OctreeNode::set_BBox(box3f b) {
     BBox = b;
+}
+
+const box3f & OctreeNode::get_BBox() const {
+    return BBox;
 }
 
 void OctreeNode::build_octree() {
@@ -131,7 +149,8 @@ bool triangle_intersects(const vector3f & v1,
                          const vector3f & v2,
                          const vector3f & v3,
                          const vector3f & point,
-                         const vector3f & direction) {
+                         const vector3f & direction,
+                         float * distance) {
 
     vector3f edge1 = v1 - v2;
     vector3f edge2 = v3 - v1;
@@ -150,13 +169,17 @@ bool triangle_intersects(const vector3f & v1,
         return false;
     }
     vector3f Q = crossProduct(T, edge1);
-    v = dotProduct(direction, Q) * inv_det;
+    float v = dotProduct(direction, Q) * inv_det;
     if(v < 0.f || u + v  > 1.f) {
         return false;
     }
 
     float t = dotProduct(edge2, Q) * inv_det;
-    if (t > EPSILON) {
+    if (t > 0 and t < *distance) {
+        // distance is positive 
+        // (intersection doesn't happen behind the camera)
+        // and closer than previous best
+        *distance = t;
         return true;
     }
 
