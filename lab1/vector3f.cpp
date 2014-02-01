@@ -58,7 +58,7 @@ vector3f crossProduct( const vector3f &v1,  const vector3f &v2 )
 
 // Operators...
 
-vector3f vector3f::operator + ( const vector3f &other ) const
+vector3f vector3f::operator + (const vector3f &other)const
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -74,7 +74,7 @@ vector3f vector3f::operator + ( void ) const
     return *this;
 }
 
-vector3f vector3f::operator - ( const vector3f &other ) const
+vector3f vector3f::operator - (const vector3f &other)const
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -92,7 +92,7 @@ vector3f vector3f::operator - ( void ) const
     return vResult;
 }
 
-vector3f vector3f::operator * ( const vector3f &other ) const
+vector3f vector3f::operator * (const vector3f &other)const
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -103,7 +103,7 @@ vector3f vector3f::operator * ( const vector3f &other ) const
     return vResult;
 }
 
-vector3f vector3f::operator * ( const float scalar ) const
+vector3f vector3f::operator * (const float scalar)const
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -125,7 +125,7 @@ vector3f operator * ( const float scalar, const vector3f &other )
     return vResult;
 }
 
-vector3f vector3f::operator / ( const vector3f &other ) const
+vector3f vector3f::operator / (const vector3f &other)const
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 

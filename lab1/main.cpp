@@ -1,16 +1,15 @@
 #include <iostream>
-
+#include <cstring>
 // global includes
 #include "GL/glut.h"
 
 // local includes
 #include "ase.h"
 #include "vector3f.h"
-#include "matrix4x4f.h"
 #include "input.h"
 #include "box3f.h"
-
 #include "octree.h"
+#include "matrix4x4f.h" 
 // global libs
 
 #ifdef _WIN32
@@ -19,10 +18,6 @@
 #pragma comment(lib, "glut32.lib")
 #endif
 // global variables
-vector3f g_vEye(0,1,5);
-vector3f g_vLook(0,0,-1);
-vector3f g_vRight(-1,0,0);
-vector3f g_vUp(0,1,0);
 int g_buttons[3];
 int g_mouse_x,g_mouse_y;
 int g_width, g_height;
@@ -59,9 +54,11 @@ void help(){
 	glLoadIdentity();
 	gluOrtho2D(0,1000,0,1000);
 
+	// REESCRIURE
 	drawString(690,10,"Press UP/DOWN/LEFT/RIGHT to navigate");
 	drawString(690,40,"Press LEFT BUTTON to perform looking");
 }
+
 void drawAxis() {
     // XYZ correspond to RGB. 
     // Negative coordinates are the inverse color.
@@ -81,78 +78,43 @@ void drawAxis() {
         glVertex3f(0,0,-2);
     glEnd();
 }
-void display(void)
-{
+
+void init(void){
+
+
+}
+
+void display(void){
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glShadeModel(GL_FLAT);
-        // setup camera
-        glMatrixMode (GL_PROJECTION);
-        glLoadIdentity ();
-        gluPerspective(60,1.33,1,200);
-        glMatrixMode(GL_MODELVIEW);
-        glLoadIdentity();
- 
-        matrix4x4f view;
-        view.identity();
-
-        g_vLook.normalize();
-
-        g_vUp = vector3f(0,1,0);
-        g_vRight = crossProduct(g_vLook, g_vUp);
-        g_vRight.normalize();
-
-        g_vUp = crossProduct(g_vRight, g_vLook);
-        g_vUp.normalize();
-
-        view.m[0] =  g_vRight.x;
-        view.m[1] =  g_vUp.x;
-        view.m[2] = -g_vLook.x;
-        view.m[3] =  0.0f;
-
-        view.m[4] =  g_vRight.y;
-        view.m[5] =  g_vUp.y;
-        view.m[6] = -g_vLook.y;
-        view.m[7] =  0.0f;
-
-        view.m[8]  =  g_vRight.z;
-        view.m[9]  =  g_vUp.z;
-        view.m[10] = -g_vLook.z;
-        view.m[11] =  0.0f;
-
-        view.m[12] = -dotProduct(g_vRight, g_vEye);
-        view.m[13] = -dotProduct(g_vUp, g_vEye);
-        view.m[14] =  dotProduct(g_vLook, g_vEye);
-        view.m[15] =  1.0f;
-
-        glMultMatrixf( view.m );
+	// setup camera
+	inputinstance.updateProjection();
+	inputinstance.updateView();
+	inputinstance.updateModel();
 
 	//render here
 
 	//draw  a square centered at 0,0
     glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	glBegin(GL_QUADS);
-
 	glVertex3f(-3,0,3);
 	glVertex3f(3,0,3);
 	glVertex3f(3, 0, -3);
 	glVertex3f(-3, 0, -3);
-
 	glEnd();
 
     // draw axis centered at 0,0,0
+	drawAxis();
 
-    drawAxis();
-
-	// draw 3d model
+	// draw model
 	g_model.render();
+
+	// draw octre
 	o->render();
 
-	// ...
-	//glutWireCube(1);
-	// dibuixar un cub on cada banda té 1 de llarg
 	//glDisable(GL_LIGHTING);
 	help();
 	
@@ -171,62 +133,69 @@ void onReshape(int w, int h){
 //	glViewport (0, 0, w, h);
 //}
 
-void parsekey(unsigned char key, int x, int y){
-	switch (key)
-	{
-		case 27: exit(0); break;
-		case 13: break;
-	}
+void onKeyboard(unsigned char k, int x, int y){
+	inputinstance.MyKeyboardFunc(k, x, y);
 }
 
-void parsekey_special(int key, int x, int y){
-	switch (key)
-	{
-		case GLUT_KEY_UP:
-			g_vEye += (g_vLook)*0.05f;
-			break;
-		case GLUT_KEY_DOWN:
-			g_vEye -= (g_vLook)*0.05f;
-			break;
-		case GLUT_KEY_RIGHT:
-			g_vEye += (g_vRight)*0.05f;
-			break;
-		case GLUT_KEY_LEFT:	
-			g_vEye -= (g_vRight)*0.05f;
-			break;
-	}
+void onKeyboard(int k, int x, int y){
+	inputinstance.MyKeyboardFunc(k, x, y);
 }
+//void parsekey(unsigned char key, int x, int y){
+//	switch (key)
+//	{
+//		case 27: exit(0); break;
+//		case 13: break;
+//	}
+//}
+//
+//void parsekey_special(int key, int x, int y){
+//	switch (key)
+//	{
+//		case GLUT_KEY_UP:
+//			g_vEye += (g_vLook)*0.05f;
+//			break;
+//		case GLUT_KEY_DOWN:
+//			g_vEye -= (g_vLook)*0.05f;
+//			break;
+//		case GLUT_KEY_RIGHT:
+//			g_vEye += (g_vRight)*0.05f;
+//			break;
+//		case GLUT_KEY_LEFT:	
+//			g_vEye -= (g_vRight)*0.05f;
+//			break;
+//	}
+//}
 
 void idle(){
 	display();
 }
 
-void motion(int x, int y){
-	int dx = x - g_mouse_x;
-	int dy = y - g_mouse_y;
-
-	if (g_buttons[LEFTMOUSE] == 1)
-	{
-		matrix4x4f matRotation;
-		if( dy != 0 )
-		{
-			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
-			matRotation.transformVector( &g_vLook );
-			matRotation.transformVector( &g_vUp );
-		}
-
-		if( dx != 0 )
-		{
-			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
-			matRotation.transformVector( &g_vLook );
-			matRotation.transformVector( &g_vUp );
-		}
-
-	}
-
-	g_mouse_x = x;
-	g_mouse_y = y;
-}
+//void motion(int x, int y){
+//	int dx = x - g_mouse_x;
+//	int dy = y - g_mouse_y;
+//
+//	if (g_buttons[LEFTMOUSE] == 1)
+//	{
+//		matrix4x4f matRotation;
+//		if( dy != 0 )
+//		{
+//			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
+//			matRotation.transformVector( &g_vLook );
+//			matRotation.transformVector( &g_vUp );
+//		}
+//
+//		if( dx != 0 )
+//		{
+//			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
+//			matRotation.transformVector( &g_vLook );
+//			matRotation.transformVector( &g_vUp );
+//		}
+//
+//	}
+//
+//	g_mouse_x = x;
+//	g_mouse_y = y;
+//}
 
 void mouse(int button, int state, int x, int y)
 {
@@ -254,18 +223,19 @@ int main(int argc, char** argv)
 	glutInitWindowSize(640, 480);
 	glutCreateWindow("Practica 1. Creacio d un octree a partir d un mesh");
 	glutDisplayFunc(display);
-	glutKeyboardFunc(parsekey);
-	glutSpecialFunc(parsekey_special);
+	glutKeyboardFunc(onKeyboard);
+	glutSpecialFunc(onKeyboard);
 	glutReshapeFunc(onReshape);
 	glutIdleFunc(idle);
 	glutMouseFunc(mouse);
-	glutMotionFunc(motion);
+	//glutMotionFunc(motion);
 
 	// load a model
 	//g_model.load("data/teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
     o = new Octree(g_model);
+	
 	glutSwapBuffers();
 	glutMainLoop();
 	glutReshapeFunc(onReshape);
