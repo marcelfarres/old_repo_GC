@@ -44,22 +44,22 @@ void input::onReshape(int w, int h){
 
 void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 	switch (Key){
-	case '+': SetZoom(-1);              break; // Zoom IN 
-	case '-': SetZoom(1);              break; // Zoom OUT
-	case ',': SetDolly(-1);             break; // Dolly IN 
-	case '.': SetDolly(1);             break; // Dolly OUT
-	case 'q': MoveObj(1, 0, 0);     break; // Move X + OBJ
-	case 'a': MoveObj(-1, 0, 0);     break; // Move X - OBJ          
-	case 'w': MoveObj(0, 1, 0);     break; // Move Y + OBJ
-	case 's': MoveObj(0, -1, 0);     break; // Move Y - OBJ
-	case 'e': MoveObj(0, 0, 1);     break; // Move Z + OBJ
-	case 'd': MoveObj(0, 0, -1);     break; // Move Z + OBJ  
-	case 'r': RotObj(1, 0, 0, 1);   break; // Rotate X + OBJ 
-	case 'f': RotObj(1, 0, 0, -1);   break; // Rotate X - OBJ        
-	case 't': RotObj(0, 1, 0, 1);   break; // Rotate Y + OBJ
-	case 'g': RotObj(0, 1, 0, -1);   break; // Rotate Y - OBJ 
-	case 'y': RotObj(0, 0, 1, 1);   break; // Rotate Z + OBJ
-	case 'h': RotObj(0, 0, 1, -1);   break; // Rotate Z + OBJ  
+	case '+': SetZoom(-1);				break; // Zoom IN 
+	case '-': SetZoom(1);				break; // Zoom OUT
+	case ',': SetDolly(-1);				break; // Dolly IN 
+	case '.': SetDolly(1);				break; // Dolly OUT
+	case 'q': MoveObj(1, 0, 0);			break; // Move X + OBJ
+	case 'a': MoveObj(-1, 0, 0);		break; // Move X - OBJ          
+	case 'w': MoveObj(0, 1, 0);			break; // Move Y + OBJ
+	case 's': MoveObj(0, -1, 0);		break; // Move Y - OBJ
+	case 'e': MoveObj(0, 0, 1);			break; // Move Z + OBJ
+	case 'd': MoveObj(0, 0, -1);		break; // Move Z + OBJ  
+	case 'r': RotObj(1, 0, 0, 1);		break; // Rotate X + OBJ 
+	case 'f': RotObj(1, 0, 0, -1);		break; // Rotate X - OBJ        
+	case 't': RotObj(0, 1, 0, 1);		break; // Rotate Y + OBJ
+	case 'g': RotObj(0, 1, 0, -1);		break; // Rotate Y - OBJ 
+	case 'y': RotObj(0, 0, 1, 1);		break; // Rotate Z + OBJ
+	case 'h': RotObj(0, 0, 1, -1);		break; // Rotate Z + OBJ  
 	case 'Z': case 'z': reset();        break; // Reset to defaults
 	};
 }
@@ -134,6 +134,19 @@ void input::RotObj(float in_x, float in_y, float in_z, float dir){
 	model = glm::rotate(model, sf_trlz[1] * dir, glm::vec3(in_x, in_y, in_z));
 }
 
+math::Vec3f windowToObjectf(const math::Vec3f& windowCoord) {
+	math::Matrix4f modelViewMatrix;
+	math::Matrix4f projectionMatrix;
+	std::array <GLint, 4> viewport;
+	glGetFloatv(GL_MODELVIEW_MATRIX, modelViewMatrix.data());
+	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix.data());
+	glGetIntegerv(GL_VIEWPORT, &viewport.front());
+	math::Vec3f ret(0, 0, 0);
+	auto succes = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.data(), projectionMatrix.data(), &viewport.front(), &ret.x, &ret.y, &ret.z);
+	RASSERT(succes == GL_TRUE);
+	GL_RASSERT();
+	return ret;
+}
 input::~input()
 {
 }

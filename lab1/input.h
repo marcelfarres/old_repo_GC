@@ -8,6 +8,8 @@
 #include "glm/gtc/matrix_transform.hpp"
 #include <iostream>
 #include "matrix4x4f.h" 
+#include <cmath>
+#include <GL/vec3.h>
 
 class input{
 public:
@@ -21,6 +23,7 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
+	math::Vec3f windowToObjectf(const math::Vec3f& windowCoord);
 
 private:
 	float sf_trlz[3];
