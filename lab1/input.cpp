@@ -135,12 +135,12 @@ void input::RotObj(float in_x, float in_y, float in_z, float dir){
 vector3f windowToObjectf(const vector3f& windowCoord) {
 	math::Matrix4f modelViewMatrix;
 	math::Matrix4f projectionMatrix;
-	std::array <GLint, 4> viewport;
+    int viewport[4];
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelViewMatrix.data());
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix.data());
-	glGetIntegerv(GL_VIEWPORT, &viewport.front());
+	glGetIntegerv(GL_VIEWPORT, viewport);
 	vector3f ret(0, 0, 0);
-	int success = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.data(), projectionMatrix.data(), &viewport.front(), &ret.x, &ret.y, &ret.z);
+	int success = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.data(), projectionMatrix.data(), viewport, &ret.x, &ret.y, &ret.z);
 	RASSERT(success == GL_TRUE);
 	GL_RASSERT();
 	return ret;
