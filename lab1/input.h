@@ -9,7 +9,7 @@
 #include <iostream>
 #include "matrix4x4f.h" 
 #include <cmath>
-#include <GL/vec3.h>
+#include "vector3f.h"
 
 class input{
 public:
@@ -23,12 +23,12 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
-	math::Vec3f windowToObjectf(const math::Vec3f& windowCoord);
+	vector3f windowToObjectf(const vector3f windowCoord);
 
 private:
 	float sf_trlz[3];
 	int max_col;
-	glm::vec3 direction;
+	vector3f direction;
 	int height;			// Screen height
 	int width;			// Screen width 
 	glm::mat4 Projection;

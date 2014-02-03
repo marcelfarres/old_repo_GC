@@ -1,7 +1,5 @@
 #include "input.h"
 
-
-
 #define MAX(a,b) ((a)>(b)?(a):(b))
 #define MIN(a,b) ((a)<(b)?(a):(b))
 
@@ -11,7 +9,7 @@ input::input(){
 	width = 800;
 
 	// This is hardcoded..... (we should control this by rotation around (0,0,0)
-	direction = glm::vec3(0, 0.5, 1);
+	direction = vector3f(0, 0.5, 1);
 
 	// init params scale factor (Borrar si al final no es fan servir tots ! )
 	sf_trlz[0] = 1.0f;      // Translate and dolly
@@ -134,16 +132,16 @@ void input::RotObj(float in_x, float in_y, float in_z, float dir){
 	model = glm::rotate(model, sf_trlz[1] * dir, glm::vec3(in_x, in_y, in_z));
 }
 
-math::Vec3f windowToObjectf(const math::Vec3f& windowCoord) {
+vector3f windowToObjectf(const vector3f& windowCoord) {
 	math::Matrix4f modelViewMatrix;
 	math::Matrix4f projectionMatrix;
 	std::array <GLint, 4> viewport;
 	glGetFloatv(GL_MODELVIEW_MATRIX, modelViewMatrix.data());
 	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix.data());
 	glGetIntegerv(GL_VIEWPORT, &viewport.front());
-	math::Vec3f ret(0, 0, 0);
-	auto succes = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.data(), projectionMatrix.data(), &viewport.front(), &ret.x, &ret.y, &ret.z);
-	RASSERT(succes == GL_TRUE);
+	vector3f ret(0, 0, 0);
+	int success = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.data(), projectionMatrix.data(), &viewport.front(), &ret.x, &ret.y, &ret.z);
+	RASSERT(success == GL_TRUE);
 	GL_RASSERT();
 	return ret;
 }
