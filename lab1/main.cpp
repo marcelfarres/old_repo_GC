@@ -197,7 +197,10 @@ void mouse(int button, int state, int x, int y)
     g_mouse_y = y;
     switch (button) {
     case GLUT_LEFT_BUTTON:
-        g_buttons[LEFTMOUSE] = (state == GLUT_DOWN);
+		vector3f v;
+		vector3f p;
+		p = inputinstance.GetVecPoint(g_mouse_x, g_mouse_y, 0.f, &v);
+		o->get_intersecting_triangle(p, v, NULL);
         break;
     case GLUT_MIDDLE_BUTTON:
         g_buttons[MIDDLEMOUSE] = (state == GLUT_DOWN);
