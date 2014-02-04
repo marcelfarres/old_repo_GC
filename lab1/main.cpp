@@ -88,18 +88,19 @@ void drawSelT(){
 		glPolygonMode(GL_BACK, GL_FILL);
 		glColor3f(1.f, 0.f, 0.f);
 		glBegin(GL_TRIANGLES);
-		glVertex3fv(o->get_vertex(t->a)); // like this
-		glVertex3fv(selected[t.b]);
-		glVertex3fv(selected[t.c]);
+		glVertex3fv(o->get_vertex(t->a)); 
+		glVertex3fv(o->get_vertex(t->b));
+		glVertex3fv(o->get_vertex(t->c));
 
 		glPolygonMode(GL_BACK, GL_LINE);
 		glEnable(GL_POLYGON_OFFSET_LINE);
 		glPolygonOffset(-1.f, -1.f);
 		glColor3f(1.f, 0.f, 0.f);
 		glBegin(GL_TRIANGLES);
-		glVertex3fv(selected[t.a]);
-		glVertex3fv(selected[t.b]);
-		glVertex3fv(selected[t.c]);
+		glVertex3fv(o->get_vertex(t->a)); 
+		glVertex3fv(o->get_vertex(t->b));
+		glVertex3fv(o->get_vertex(t->c));
+
 	}
 }
 void init(void){
@@ -170,14 +171,15 @@ void mouse(int button, int state, int x, int y)
 	vector3f v;
 	vector3f p;
 
-    switch (button) {
-    case GLUT_LEFT_BUTTON:
+	switch (button) {
+	case GLUT_LEFT_BUTTON:{
 		p = inputinstance.GetVecPoint(g_mouse_x, g_mouse_y, 0.f, &v);
 		const triangle *t = o->get_intersecting_triangle(p, v, NULL);
-		if (t!=NULL){
+		if (t != NULL){
 			selected.push_back(t);
 		}
-        break;
+		break;
+	}
     case GLUT_MIDDLE_BUTTON:
         g_buttons[MIDDLEMOUSE] = (state == GLUT_DOWN);
         break;
