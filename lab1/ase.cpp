@@ -68,12 +68,10 @@ bool CASEModel::load(const char* filename)
 	return true;
 }
 
-void CASEModel::render() const
-{	
+void CASEModel::render() const{	
 
     unsigned i;
-	for (i=0;i<m_triangles.size();i++)
-	{
+	for (i=0;i<m_triangles.size();i++)	{
 		const triangle & t = m_triangles[i];
 /*
 		vector3 normal;

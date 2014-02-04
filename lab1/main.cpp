@@ -80,6 +80,28 @@ void drawAxis() {
     glEnd();
 }
 
+void drawSelT(){
+	int i;
+	for (i = 0; i<selected.size(); i++)	{
+		const triangle & t = selected[i];
+
+		glPolygonMode(GL_BACK, GL_FILL);
+		glColor3f(1.f, 0.f, 0.f);
+		glBegin(GL_TRIANGLES);
+		glVertex3fv(selected[t.a]);
+		glVertex3fv(selected[t.b]);
+		glVertex3fv(selected[t.c]);
+
+		glPolygonMode(GL_BACK, GL_LINE);
+		glEnable(GL_POLYGON_OFFSET_LINE);
+		glPolygonOffset(-1.f, -1.f);
+		glColor3f(1.f, 0.f, 0.f);
+		glBegin(GL_TRIANGLES);
+		glVertex3fv(selected[t.a]);
+		glVertex3fv(selected[t.b]);
+		glVertex3fv(selected[t.c]);
+	}
+}
 void init(void){
 
 
@@ -135,62 +157,11 @@ void onKeyboard(unsigned char k, int x, int y){
 void onKeyboard(int k, int x, int y){
 	inputinstance.MyKeyboardFunc(k, x, y);
 }
-//void parsekey(unsigned char key, int x, int y){
-//	switch (key)
-//	{
-//		case 27: exit(0); break;
-//		case 13: break;
-//	}
-//}
-//
-//void parsekey_special(int key, int x, int y){
-//	switch (key)
-//	{
-//		case GLUT_KEY_UP:
-//			g_vEye += (g_vLook)*0.05f;
-//			break;
-//		case GLUT_KEY_DOWN:
-//			g_vEye -= (g_vLook)*0.05f;
-//			break;
-//		case GLUT_KEY_RIGHT:
-//			g_vEye += (g_vRight)*0.05f;
-//			break;
-//		case GLUT_KEY_LEFT:	
-//			g_vEye -= (g_vRight)*0.05f;
-//			break;
-//	}
-//}
+
 
 void idle(){
 	display();
 }
-
-//void motion(int x, int y){
-//	int dx = x - g_mouse_x;
-//	int dy = y - g_mouse_y;
-//
-//	if (g_buttons[LEFTMOUSE] == 1)
-//	{
-//		matrix4x4f matRotation;
-//		if( dy != 0 )
-//		{
-//			matRotation.rotate( -(float)dy / 3.0f, g_vRight );
-//			matRotation.transformVector( &g_vLook );
-//			matRotation.transformVector( &g_vUp );
-//		}
-//
-//		if( dx != 0 )
-//		{
-//			matRotation.rotate( -(float)dx / 3.0f, vector3f(0.0f, 1.0f, 0.0f) );
-//			matRotation.transformVector( &g_vLook );
-//			matRotation.transformVector( &g_vUp );
-//		}
-//
-//	}
-//
-//	g_mouse_x = x;
-//	g_mouse_y = y;
-//}
 
 void mouse(int button, int state, int x, int y)
 {
@@ -230,7 +201,6 @@ int main(int argc, char** argv)
 	glutReshapeFunc(onReshape);
 	glutIdleFunc(idle);
 	glutMouseFunc(mouse);
-	//glutMotionFunc(motion);
 
 	// load a model
 	//g_model.load("data/teapot.ase");
