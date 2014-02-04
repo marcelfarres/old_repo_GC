@@ -55,8 +55,8 @@ void help(){
 	gluOrtho2D(0,1000,0,1000);
 
 	// REESCRIURE
-	drawString(690,10,"Press UP/DOWN/LEFT/RIGHT to navigate");
-	drawString(690,40,"Press LEFT BUTTON to perform looking");
+	drawString(60,10," MOVE --->  RIGHT:q LEFT:a UP:w DOWN:s BACK:e FORWARDS:d");
+	drawString(60,40," X Axis rotation (+/-): r/f, Y Axis rotation (+/-): t/g Z Axis rotation (+/-): y/h");
 }
 
 void drawAxis() {
@@ -126,12 +126,6 @@ void display(void){
 void onReshape(int w, int h){
 	inputinstance.onReshape(w, h);
 }
-//void reshape(int w, int h){
-//	g_width = w;
-//	g_height = h;
-//	glMatrixMode (GL_MODELVIEW);
-//	glViewport (0, 0, w, h);
-//}
 
 void onKeyboard(unsigned char k, int x, int y){
 	inputinstance.MyKeyboardFunc(k, x, y);

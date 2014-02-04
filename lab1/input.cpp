@@ -133,30 +133,38 @@ void input::RotObj(float in_x, float in_y, float in_z, float dir){
 }
 
 
-glm::vec4 input::UnProjection(double x, double y, double z){
-	glm::vec4 newPos;
+vector3f input::UnProjection(double x, double y, double z){
+	vector3f newPos;
 	glm::vec4 cords;
+	glm::vec3 d;
 
 	glm::mat4 m;
-	matrix4x4f d;
-	// Falta get model get proj and get view 
+
 	m = model * Projection;
 	glm::mat4 inverseProjection = m._inverse();
 		
 
 	cords[0] = 2 * (x - direction[0]) / direction[2] - 1;
-
 	cords[1] = 2 * (y - direction[1]) / direction[3] - 1;
-
 	cords[2] = 2 * (z)-1;
-
 	cords[3] = 1;
 
-	newPos = inverseProjection * cords;
+	d = glm::vec3(inverseProjection * cords);
+	newPos.set(d[0], d[1], d[2]);
 
 	return newPos;
 }
 
+glm::vec3 input::GetVecPoint(double x, double y, double z, glm::vec3 *v){
+	glm::vec3 near;
+	glm::vec3 far;
+	glm::vec3 ray;
+	
+	near = input::UnProjection(x, y, z);
+	far = input::UnProjection(x, y, z+1);
+	ray = ray.
+
+}
 input::~input()
 {
 }

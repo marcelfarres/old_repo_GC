@@ -175,7 +175,7 @@ bool triangle_intersects(const vector3f & v1,
     }
 
     float t = dotProduct(edge2, Q) * inv_det;
-    if (t > 0 and t < *distance) {
+    if (t > 0 && t < *distance) {
         // distance is positive 
         // (intersection doesn't happen behind the camera)
         // and closer than previous best
