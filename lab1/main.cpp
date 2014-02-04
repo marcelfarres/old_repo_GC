@@ -22,7 +22,7 @@ int g_buttons[3];
 int g_mouse_x,g_mouse_y;
 int g_width, g_height;
 input inputinstance;
-std::vector<triangle*> selected;
+std::vector<const triangle*> selected;
 
 // the mesh model
 CASEModel g_model;
@@ -172,12 +172,14 @@ void mouse(int button, int state, int x, int y)
 
     switch (button) {
     case GLUT_LEFT_BUTTON:
-		p = inputinstance.GetVecPoint(g_mouse_x, g_mouse_y, 0.f, &v);
-		const triangle *t = o->get_intersecting_triangle(p, v, NULL);
-		if (t!=NULL){
-			selected.push_back(t);
-		}
+        {
+            p = inputinstance.GetVecPoint(g_mouse_x, g_mouse_y, 0.f, &v);
+            const triangle *t = o->get_intersecting_triangle(p, v, NULL);
+            if (t!=NULL){
+                selected.push_back(t);
+            }
         break;
+        }
     case GLUT_MIDDLE_BUTTON:
         g_buttons[MIDDLEMOUSE] = (state == GLUT_DOWN);
         break;
