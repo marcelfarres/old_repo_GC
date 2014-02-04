@@ -133,13 +133,13 @@ void input::RotObj(float in_x, float in_y, float in_z, float dir){
 }
 
 
-vector3f input::UnProjection(double x, double y, double z){
+vector3f input::UnProjection(float  x, float  y, float  z){
 	vector3f newPos;
 	glm::vec4 cords;
 	glm::vec3 d;
 
 	glm::mat4 m;
-
+	
 	m = model * Projection;
 	glm::mat4 inverseProjection = m._inverse();
 		
@@ -152,18 +152,26 @@ vector3f input::UnProjection(double x, double y, double z){
 	d = glm::vec3(inverseProjection * cords);
 	newPos.set(d[0], d[1], d[2]);
 
+	cout << "mouse window" << "-" << x << "-" << y << "-" << z << endl;
+	cout << "mouse world" << "-" << d[0] << "-" << d[1] << "-" << d[2] << endl;
 	return newPos;
 }
 
 
-vector3f input::GetVecPoint(double x, double y, double z, vector3f *v){
+vector3f input::GetVecPoint(float x, float y, float z, vector3f *v){
 	vector3f near;
 	vector3f far;
-	
+	vector3f t;
+
 	near = input::UnProjection(x, y, z);
 	far = input::UnProjection(x, y, z+1);
+	t = far - near;
+	cout << "Vector no normalized" << "-" << t[0] << "-" << t[1] << "-" << t[2] << endl;
 	*v = far - near;
 	v->normalize();
+	cout << "Vector normalized" << "-" << v->x << "-" << v->y << "-" << v->z << endl;
+
+
 	return near;
 
 }

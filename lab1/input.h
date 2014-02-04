@@ -11,8 +11,19 @@
 #include <cmath>
 #include "vector3f.h"
 
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+
+
+
 class input{
 public:
+	int height;			// Screen height
+	int width;			// Screen width 
 	// Fun
 	input();
 	~input();
@@ -23,16 +34,14 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
-	vector3f UnProjection(double x, double y, double z);
-	vector3f GetVecPoint(double x, double y, double z, vector3f *v);
+	vector3f UnProjection(float x, float y, float z);
+	vector3f GetVecPoint(float x, float y, float z, vector3f *v);
 
 
 private:
 	float sf_trlz[2];
 	int max_col;
 	vector3f direction;
-	int height;			// Screen height
-	int width;			// Screen width 
 	glm::mat4 Projection;
 	//glm::mat4 View;
 	glm::vec3 Camera;

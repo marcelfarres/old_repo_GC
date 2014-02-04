@@ -12,6 +12,15 @@
 #include "matrix4x4f.h" 
 // global libs
 
+
+
+#include <iostream>
+#include <string>
+#include <sstream>
+using namespace std;
+
+
+
 #ifdef _WIN32
 #pragma comment(lib, "opengl32.lib")
 #pragma comment(lib, "glu32.lib")
@@ -19,7 +28,7 @@
 #endif
 // global variables
 int g_buttons[3];
-int g_mouse_x,g_mouse_y;
+float g_mouse_x,g_mouse_y;
 int g_width, g_height;
 input inputinstance;
 std::vector<const triangle*> selected;
@@ -166,18 +175,21 @@ void idle(){
 
 void mouse(int button, int state, int x, int y)
 {
-    g_mouse_x = x;
-    g_mouse_y = y;
+	g_mouse_x = x / (float)inputinstance.height;
+	g_mouse_y = y / (float) inputinstance.width;
 	vector3f v;
 	vector3f p;
-
+	
     switch (button) {
     case GLUT_LEFT_BUTTON:
         {
             p = inputinstance.GetVecPoint(g_mouse_x, g_mouse_y, 0.f, &v);
             const triangle *t = o->get_intersecting_triangle(p, v, NULL);
-            if (t!=NULL){
+			cout << "point" << p.x << p.y << p.z << endl;
+			cout << "vector" << v.x << v.y << v.z << endl;
+			if (t!=NULL){
                 selected.push_back(t);
+				cout << "New triangle !" << endl;
             }
         break;
         }
