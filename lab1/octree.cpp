@@ -180,7 +180,11 @@ bool triangle_intersects(const vector3f & v1,
     }
 
     float t = dotProduct(edge2, Q) * inv_det;
+<<<<<<< HEAD
     if (t > 0) {
+=======
+    if (t > 0 && t < *distance) {
+>>>>>>> ray + point
         // distance is positive 
         // (intersection doesn't happen behind the camera)
         *distance = t;

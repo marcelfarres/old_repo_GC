@@ -23,7 +23,10 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
-	glm::vec4 UnProjection(double x, double y, double z);
+
+	vector3f input::UnProjection(double x, double y, double z);
+	vector3f  input::GetVecPoint(double x, double y, double z, vector3f *v);
+
 
 private:
 	float sf_trlz[2];
@@ -32,7 +35,7 @@ private:
 	int height;			// Screen height
 	int width;			// Screen width 
 	glm::mat4 Projection;
-	glm::mat4 View;
+	//glm::mat4 View;
 	glm::vec3 Camera;
 	glm::mat4 model;
 	float dolly;
