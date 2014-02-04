@@ -155,14 +155,16 @@ vector3f input::UnProjection(double x, double y, double z){
 	return newPos;
 }
 
-glm::vec3 input::GetVecPoint(double x, double y, double z, glm::vec3 *v){
-	glm::vec3 near;
-	glm::vec3 far;
-	glm::vec3 ray;
+
+vector3f input::GetVecPoint(double x, double y, double z, vector3f *v){
+	vector3f near;
+	vector3f far;
 	
 	near = input::UnProjection(x, y, z);
 	far = input::UnProjection(x, y, z+1);
-	ray = ray.
+	*v = far - near;
+	v->normalize();
+	return near;
 
 }
 input::~input()

@@ -24,7 +24,8 @@ public:
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
 	vector3f input::UnProjection(double x, double y, double z);
-	glm::vec3 input::GetVecPoint(double x, double y, double z, vector3f *v);
+	vector3f  input::GetVecPoint(double x, double y, double z, vector3f *v);
+
 
 private:
 	float sf_trlz[2];
