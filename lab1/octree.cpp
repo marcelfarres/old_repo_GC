@@ -11,7 +11,7 @@ inline bool float_is_zero(float f) {
 
 
 Octree::Octree(const CASEModel &m) : triangles(m.getTriangles()), model(m){
-	max_depth = 3;
+	max_depth = 8;
 	min_tri = 10;
     root_node = new OctreeNode(this, max_depth, min_tri);
     for(unsigned i = 0; i < triangles.size(); i++) {
