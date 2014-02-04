@@ -15,7 +15,7 @@ unsigned int width = 500;
 unsigned int height = 500;
 float extents = 50.0f;
 
-#include "Delaunay.h"
+#include "delaunay.h"
 
 // delaunay variables
 std::vector<Point> points;
@@ -94,7 +94,7 @@ void init()
 
 	if (points.size() > 0)
 	{
-		srand(GetTickCount());
+		srand(0);
 		for (i=0;i<50;i++)
 		{
 			j = rand()%points.size();

@@ -1,8 +1,6 @@
 #ifndef _DELAUNAY_
 #define _DELAUNAY_
 
-#pragma warning (disable: 4786)
-
 #include <iostream>
 #include <vector>
 #include <map>
