@@ -192,8 +192,7 @@ void mouse(int button, int state, int x, int y)
 }
 
 /* Now comes a function that processes keyboard events */
-void 
-keyboard (unsigned char key, int x, int y)
+void keyboard (unsigned char key, int x, int y)
 {
   switch (key)
    {
