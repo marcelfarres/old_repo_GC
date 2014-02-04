@@ -83,12 +83,12 @@ void drawAxis() {
 void drawSelT(){
 	int i;
 	for (i = 0; i<selected.size(); i++)	{
-		const triangle & t = selected[i];
+		const triangle *t = selected[i];
 
 		glPolygonMode(GL_BACK, GL_FILL);
 		glColor3f(1.f, 0.f, 0.f);
 		glBegin(GL_TRIANGLES);
-		glVertex3fv(selected[t.a]);
+		glVertex3fv(o->get_vertex(t->a)); // like this
 		glVertex3fv(selected[t.b]);
 		glVertex3fv(selected[t.c]);
 
