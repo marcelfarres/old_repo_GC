@@ -23,10 +23,10 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
-	vector3f windowToObjectf(const vector3f windowCoord);
+	glm::vec4 input::UnProjection(double x, double y, double z);
 
 private:
-	float sf_trlz[3];
+	float sf_trlz[2];
 	int max_col;
 	vector3f direction;
 	int height;			// Screen height

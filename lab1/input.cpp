@@ -46,17 +46,17 @@ void input::MyKeyboardFunc(unsigned char Key, int x, int y){
 	case '-': SetZoom(1);				break; // Zoom OUT
 	case ',': SetDolly(-1);				break; // Dolly IN 
 	case '.': SetDolly(1);				break; // Dolly OUT
-	case 'q': MoveObj(1, 0, 0);			break; // Move X + OBJ
+	case 'q': MoveObj( 1, 0, 0);		break; // Move X + OBJ
 	case 'a': MoveObj(-1, 0, 0);		break; // Move X - OBJ          
-	case 'w': MoveObj(0, 1, 0);			break; // Move Y + OBJ
+	case 'w': MoveObj(0,  1, 0);		break; // Move Y + OBJ
 	case 's': MoveObj(0, -1, 0);		break; // Move Y - OBJ
-	case 'e': MoveObj(0, 0, 1);			break; // Move Z + OBJ
+	case 'e': MoveObj(0, 0,  1);		break; // Move Z + OBJ
 	case 'd': MoveObj(0, 0, -1);		break; // Move Z + OBJ  
-	case 'r': RotObj(1, 0, 0, 1);		break; // Rotate X + OBJ 
+	case 'r': RotObj(1, 0, 0,  1);		break; // Rotate X + OBJ 
 	case 'f': RotObj(1, 0, 0, -1);		break; // Rotate X - OBJ        
-	case 't': RotObj(0, 1, 0, 1);		break; // Rotate Y + OBJ
+	case 't': RotObj(0, 1, 0,  1);		break; // Rotate Y + OBJ
 	case 'g': RotObj(0, 1, 0, -1);		break; // Rotate Y - OBJ 
-	case 'y': RotObj(0, 0, 1, 1);		break; // Rotate Z + OBJ
+	case 'y': RotObj(0, 0, 1,  1);		break; // Rotate Z + OBJ
 	case 'h': RotObj(0, 0, 1, -1);		break; // Rotate Z + OBJ  
 	case 'Z': case 'z': reset();        break; // Reset to defaults
 	};
@@ -131,20 +131,30 @@ void input::MoveObj(float in_x, float in_y, float in_z){
 void input::RotObj(float in_x, float in_y, float in_z, float dir){
 	model = glm::rotate(model, sf_trlz[1] * dir, glm::vec3(in_x, in_y, in_z));
 }
+glm::vec4 input::UnProjection(double x, double y, double z){
+	glm::vec4 newPos;
+	glm::vec4 cords;
 
-vector3f windowToObjectf(const vector3f& windowCoord) {
-	matrix4x4f modelViewMatrix;
-	matrix4x4f projectionMatrix;
-    int viewport[4];
-	glGetFloatv(GL_MODELVIEW_MATRIX, modelViewMatrix.m);
-	glGetFloatv(GL_PROJECTION_MATRIX, projectionMatrix.m);
-	glGetIntegerv(GL_VIEWPORT, viewport);
-	vector3f ret(0, 0, 0);
-	int success = gluUnProject(windowCoord.x, windowCoord.y, windowCoord.z, modelViewMatrix.m, projectionMatrix.m, viewport, &ret.x, &ret.y, &ret.z);
-	RASSERT(success == GL_TRUE);
-	GL_RASSERT();
-	return ret;
+	glm::mat4 m;
+	matrix4x4f d;
+	// Falta get model get proj and get view 
+	m = model * Projection;
+	glm::mat4 inverseProjection = m._inverse();
+		
+
+	cords[0] = 2 * (x - direction[0]) / direction[2] - 1;
+
+	cords[1] = 2 * (y - direction[1]) / direction[3] - 1;
+
+	cords[2] = 2 * (z)-1;
+
+	cords[3] = 1;
+
+	newPos = inverseProjection * cords;
+
+	return newPos;
 }
+
 input::~input()
 {
 }
