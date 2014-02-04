@@ -23,8 +23,8 @@ public:
 	void onReshape(int width, int height);
 	void MyKeyboardFunc(unsigned char Key, int x, int y);
 	void MyKeyboardFunc(int Key, int x, int y);
-	vector3f input::UnProjection(double x, double y, double z);
-	vector3f  input::GetVecPoint(double x, double y, double z, vector3f *v);
+	vector3f UnProjection(double x, double y, double z);
+	vector3f GetVecPoint(double x, double y, double z, vector3f *v);
 
 
 private:
