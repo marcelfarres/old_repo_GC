@@ -1,4 +1,4 @@
-class circle
+class Circle
   c: null
   r: null 
   color: null
