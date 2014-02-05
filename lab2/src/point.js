@@ -15,6 +15,18 @@ Point = (function() {
     return new Point(this.x + other.x, this.y + other.y);
   };
 
+  Point.prototype.sub = function(other) {
+    return new Point(this.x - other.x, this.y - other.y);
+  };
+
+  Point.prototype.dot = function(other) {
+    return new Point(this.x * other.x, this.y * other.y);
+  };
+
+  Point.prototype.mult = function(other) {
+    return new Point(this.x * other, this.y * other);
+  };
+
   return Point;
 
 })();
@@ -28,3 +40,9 @@ console.log(a);
 console.log(b);
 
 console.log(a.add(b));
+
+console.log(a.sub(b));
+
+console.log(a.dot(b));
+
+console.log(a.mult(5));
