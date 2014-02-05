@@ -1,7 +1,6 @@
 *.swp
 *.o
 *~
-Makefile
 CMake*
 cmake*
 p1_bin
