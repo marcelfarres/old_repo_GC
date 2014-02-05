@@ -1,4 +1,4 @@
-class circle
+class Circle
   c: null
   r: null 
   color: null
@@ -6,12 +6,13 @@ class circle
   constructor: (c, r, color=blue) ->
     @c = c
     @r = r
+    @color = color
 
   contains: (point) ->
   	r*r > (@c.x - point.x)*(@c.x - point.x) + (@c.y - point.y) * (@c.y - point.y)
 
-  draw: ->
-    context.beginPath();
-    context.arc(95,50,40,0,2*Math.PI);
-    context.strokeStyle = @color.asHex;
-    context.stroke();
+  draw: (ctx) ->
+    ctx.beginPath()
+    ctx.arc(95,50,40,0,2*Math.PI)
+    ctx.strokeStyle = @color.asHex()
+    ctx.stroke()
