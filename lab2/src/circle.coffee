@@ -1,8 +1,4 @@
 class Circle
-  c: null
-  r: null 
-  color: null
-
   constructor: (c, r, color=blue) ->
     @c = c
     @r = r
@@ -13,6 +9,6 @@ class Circle
 
   draw: (ctx) ->
     ctx.beginPath()
-    ctx.arc(95,50,40,0,2*Math.PI)
+    ctx.arc(@c.x,@c.y,@r,0,2*Math.PI)
     ctx.strokeStyle = @color.asHex()
     ctx.stroke()

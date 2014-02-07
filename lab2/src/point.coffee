@@ -1,10 +1,9 @@
 class Point
-  x: null
-  y: null
 
-  constructor: (x, y) ->
+  constructor: (x, y, color = blue) ->
     @x = x
     @y = y
+    @color = color
 
   add: (other) ->
     return new Point(@x + other.x, @y + other.y)
@@ -19,6 +18,15 @@ class Point
     return new Point(@x * other, @y * other)
 
   draw: (ctx) ->
+    sz = 4
+    ctx.beginPath()
+    ctx.moveTo(@x-sz, @y-sz)
+    ctx.lineTo(@x+sz, @y+sz)
+    ctx.moveTo(@x+sz, @y-sz)
+    ctx.lineTo(@x-sz, @y+sz)
+    console.log @color.asHex()
+    ctx.strokeStyle = @color.asHex()
+    ctx.stroke()
     
   norm: ->
     return @x*@x + @y*@y 
