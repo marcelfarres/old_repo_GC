@@ -17,3 +17,6 @@ class Point
 
   mult: (other) -> 
     return new Point(@x * other, @y * other)
+
+  draw: (ctx) ->
+    
