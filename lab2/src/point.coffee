@@ -20,3 +20,5 @@ class Point
 
   draw: (ctx) ->
     
+  norm: ->
+    return @x*@x + @y*@y 
