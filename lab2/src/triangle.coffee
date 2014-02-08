@@ -11,13 +11,13 @@ class Triangle
     xDelta_p0 = p1.x - p0.x;
     yDelta_p1 = p2.y - p1.y;
     xDelta_p1 = p2.x - p1.x;
-    pt center = P(0,0);
+    center = new Point(0,0);
 
     p0Slope  = yDelta_p0/xDelta_p0;
     p1Slope  = yDelta_p1/xDelta_p1;  
     center.x = (p0Slope*p1Slope*(p0.y - p2.y) + p1Slope*(p0.x + p1.x) - p0Slope*(p1.x+p2.x) )/(2*(p1Slope-p0Slope) );
     center.y = -1*(center.x - (p0.x+p1.x)/2)/p0Slope + (p0.y+p1.y)/2;
-    console.log center
+    console.log center.x center.y 
     return new Circle(center, (center-p0).norm())
 
   draw: (ctx) ->
