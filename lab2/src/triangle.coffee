@@ -7,18 +7,22 @@ class Triangle
     @color = color
 
   getCircle: ->
-    yDelta_p0 = p1.y - p0.y;
-    xDelta_p0 = p1.x - p0.x;
-    yDelta_p1 = p2.y - p1.y;
-    xDelta_p1 = p2.x - p1.x;
     center = new Point(0,0);
+    r = new Point(0,0);
+
+    yDelta_p0 = @p1.y - @p0.y;
+    xDelta_p0 = @p1.x - @p0.x;
+    yDelta_p1 = @p2.y - @p1.y;
+    xDelta_p1 = @p2.x - @p1.x;
 
     p0Slope  = yDelta_p0/xDelta_p0;
     p1Slope  = yDelta_p1/xDelta_p1;  
-    center.x = (p0Slope*p1Slope*(p0.y - p2.y) + p1Slope*(p0.x + p1.x) - p0Slope*(p1.x+p2.x) )/(2*(p1Slope-p0Slope) );
-    center.y = -1*(center.x - (p0.x+p1.x)/2)/p0Slope + (p0.y+p1.y)/2;
-    console.log center.x center.y 
-    return new Circle(center, (center-p0).norm())
+    center.x = (p0Slope*p1Slope*(@p0.y - @p2.y) + p1Slope*(@p0.x + @p1.x) - p0Slope*(@p1.x+@p2.x) )/(2*(p1Slope-p0Slope) );
+    center.y = -1*(center.x - (@p0.x+@p1.x)/2)/p0Slope + (@p0.y+@p1.y)/2;
+    r = center.sub @p0
+    r = r.norm()
+
+    return new Circle(center, r)
 
   draw: (ctx) ->
     ctx.beginPath()
