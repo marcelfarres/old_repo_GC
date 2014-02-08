@@ -17,6 +17,10 @@ class Point
   mult: (other) -> 
     return new Point(@x * other, @y * other)
 
+  norm: ->
+    return @x*@x + @y*@y 
+
+
   draw: (ctx) ->
     sz = 4
     ctx.beginPath()
@@ -26,6 +30,4 @@ class Point
     ctx.lineTo(@x-sz, @y+sz)
     ctx.strokeStyle = @color.asHex()
     ctx.stroke()
-    
-  norm: ->
-    return @x*@x + @y*@y 
+  

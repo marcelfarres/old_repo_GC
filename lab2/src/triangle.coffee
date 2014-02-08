@@ -17,7 +17,7 @@ class Triangle
     p1Slope  = yDelta_p1/xDelta_p1;  
     center.x = (p0Slope*p1Slope*(p0.y - p2.y) + p1Slope*(p0.x + p1.x) - p0Slope*(p1.x+p2.x) )/(2*(p1Slope-p0Slope) );
     center.y = -1*(center.x - (p0.x+p1.x)/2)/p0Slope + (p0.y+p1.y)/2;
-
+    console.log center
     return new Circle(center, (center-p0).norm())
 
   draw: (ctx) ->
@@ -28,3 +28,4 @@ class Triangle
     ctx.lineTo(@p0.x, @p0.y)
     ctx.strokeStyle = @color.asHex()
     ctx.stroke()
+

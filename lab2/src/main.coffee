@@ -32,7 +32,12 @@ window.onload = ->
   canvas.addEventListener('click', (e) ->
     points.push mouse
   )
-
+  A = new Point(0,1)
+  B = new Point(1,0)
+  C = new Point(0,-1)
+  t = new Triangle(A,B,C)
+  c = t.getCircle
+  console.log c.c
   canvas.addEventListener('mousemove', (e) -> 
     mouse = new Point(e.offsetX, e.offsetY)
   )

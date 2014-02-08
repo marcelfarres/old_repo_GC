@@ -1,7 +1,6 @@
 build: dummy
-	coffee -c src/*.coffee
-	rm src/*.js
-	coffee -b -j build/delaunay.js -c src/*.coffee
+	coffee -j build/delaunay.js -c --compile src/circle.coffee src/color.coffee src/delaunay.coffee src/point.coffee src/triangle.coffee src/main.coffee
+
 clean:
 	rm build/delaunay.js
 
