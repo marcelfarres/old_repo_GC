@@ -28,9 +28,9 @@ window.onload = ->
     p.draw(ctx) for p in points
     for i in [0..points.length-3] by 3
       t = new Triangle(points[i], points[i+1], points[i+2])
-      c = t.getCircle()
+      t.getCircle().draw(ctx)
       t.draw(ctx)
-      c.draw(ctx)
+
   # handlers and thingies that can't be initialized earlier.
   
   window.setInterval(mainloop, 1000/ fps)

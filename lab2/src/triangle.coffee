@@ -8,7 +8,6 @@ class Triangle
 
   getCircle: ->
     center = new Point(0,0);
-    r = new Point(0,0);
 
     yDelta_p0 = @p1.y - @p0.y;
     xDelta_p0 = @p1.x - @p0.x;

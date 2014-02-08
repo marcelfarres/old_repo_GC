@@ -18,7 +18,7 @@ class Point
     return new Point(@x * other, @y * other)
 
   norm: ->
-    return @x*@x + @y*@y 
+    return Math.sqrt(@x*@x + @y*@y) 
 
 
   draw: (ctx) ->
