@@ -17,8 +17,9 @@ window.onload = ->
     document.getElementById('buttons').appendChild(b)
 
   # set global variables here (processing 'setup')
-  points = []
-  circles = []
+  points    = []
+  triangles = []
+  circles   = []
   show_circles = false
 
   # edit this, it should prettyjs  be straightforward
@@ -26,18 +27,16 @@ window.onload = ->
     ctx.clearRect(0,0, canvas.width, canvas.height)
     p.draw(ctx) for p in points
     for i in [0..points.length-3] by 3
-      new Triangle(points[i], points[i+1], points[i+2]).draw(ctx)
+      t = new Triangle(points[i], points[i+1], points[i+2])
+      c = t.getCircle()
+      t.draw(ctx)
+      c.draw(ctx)
   # handlers and thingies that can't be initialized earlier.
+  
   window.setInterval(mainloop, 1000/ fps)
+  
   canvas.addEventListener('click', (e) ->
     points.push mouse
-  A = new Point(0,1)
-  B = new Point(1,0)
-  C = new Point(0,-1)
-  t = new Triangle(A,B,C)
-  c = t.getCircle()
-  console.log c
-    
   )
 
 
