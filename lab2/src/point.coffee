@@ -24,7 +24,6 @@ class Point
     ctx.lineTo(@x+sz, @y+sz)
     ctx.moveTo(@x+sz, @y-sz)
     ctx.lineTo(@x-sz, @y+sz)
-    console.log @color.asHex()
     ctx.strokeStyle = @color.asHex()
     ctx.stroke()
     
