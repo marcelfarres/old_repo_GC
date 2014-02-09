@@ -1,6 +1,6 @@
 class Point
 
-  constructor: (x, y, color = blue) ->
+  constructor: (x, y, color = black) ->
     @x = x
     @y = y
     @color = color
@@ -22,7 +22,7 @@ class Point
 
 
   draw: (ctx) ->
-    sz = 4
+    sz = 2
     ctx.beginPath()
     ctx.moveTo(@x-sz, @y-sz)
     ctx.lineTo(@x+sz, @y+sz)
