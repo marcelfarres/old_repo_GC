@@ -1,11 +1,8 @@
-class Point
-  x: null
-  y: null
+class Delaunay
 
-  constructor: (x, y) ->
-    @x = x
-    @y = y
+  constructor: -> 
+    # We'll see ! 
 
-  add: (other) ->
-    return new Point(@x + other.x, @y + other.y)
- 
+  reset: ->  constructor:
+    # Here we have to reset all the algorithm 
+    console.log 'Reset!'

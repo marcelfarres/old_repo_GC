@@ -7,6 +7,9 @@ class Circle
   contains: (point) ->
   	r*r > (@c.x - point.x)*(@c.x - point.x) + (@c.y - point.y) * (@c.y - point.y)
 
+  #intersecs: (circle) ->
+    # still missing!
+
   draw: (ctx) ->
     ctx.beginPath()
     ctx.arc(@c.x,@c.y,@r,0,2*Math.PI)
