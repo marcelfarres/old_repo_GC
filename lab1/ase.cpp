@@ -68,14 +68,10 @@ bool CASEModel::load(const char* filename)
 	return true;
 }
 
-void CASEModel::render() const
-{	
-	glPolygonMode(GL_FRONT_AND_BACK,GL_LINE);
-    glColor3f(1,1,1);
-	glBegin(GL_TRIANGLES);
+void CASEModel::render() const{	
+
     unsigned i;
-	for (i=0;i<m_triangles.size();i++)
-	{
+	for (i=0;i<m_triangles.size();i++)	{
 		const triangle & t = m_triangles[i];
 /*
 		vector3 normal;
@@ -87,6 +83,18 @@ void CASEModel::render() const
 		
 		glNormal3fv(normal);
 		*/
+		glPolygonMode(GL_BACK, GL_FILL);
+		glColor3f(0.4f, 0.4f, 0.4f);
+		glBegin(GL_TRIANGLES);
+		glVertex3fv(m_vertices[t.a]);
+		glVertex3fv(m_vertices[t.b]);
+		glVertex3fv(m_vertices[t.c]);
+
+		glPolygonMode(GL_BACK, GL_LINE);
+		glEnable(GL_POLYGON_OFFSET_LINE);
+		glPolygonOffset(-1.f, -1.f);
+		glColor3f(0.f, 0.f, 0.f);
+		glBegin(GL_TRIANGLES);
 		glVertex3fv(m_vertices[t.a]);
 		glVertex3fv(m_vertices[t.b]);
 		glVertex3fv(m_vertices[t.c]);
