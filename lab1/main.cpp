@@ -90,10 +90,10 @@ void display(void){
 	//glEnable(GL_LIGHTING);
 	//glEnable(GL_LIGHT0);
 	//glShadeModel(GL_FLAT);
-
 	// setup camera
 	inputinstance.updateProjection();
 	inputinstance.updateView();
+	inputinstance.updateModel();
 
 	//render here
 
@@ -231,7 +231,7 @@ int main(int argc, char** argv)
 	//glutMotionFunc(motion);
 
 	// load a model
-	//g_model.load("data\\teapot.ase");
+	//g_model.load("data/teapot.ase");
 	g_model.load("data/knot.ase");
 	//g_model.load("data\\terrain.ase");
     o = new Octree(g_model);
