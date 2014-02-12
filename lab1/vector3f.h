@@ -10,16 +10,14 @@
 #define _VECTOR3F_H_
 
 #include <cmath>
-#include <iostream>
 
 class vector3f
 {
 public:
 
-    union {
-        struct { float x, y, z; };
-        struct { float t[3]; };
-    };
+    float x;
+    float y;
+    float z;
 
     vector3f(void)
     {
@@ -34,13 +32,13 @@ public:
     float normalize(void);
 
     // Operators...
-	vector3f operator + (const vector3f &other)const;
-    vector3f operator - (const vector3f &other)const;
-	vector3f operator * (const vector3f &other)const;
-	vector3f operator / (const vector3f &other)const;
+    vector3f operator + (const vector3f &other);
+    vector3f operator - (const vector3f &other);
+    vector3f operator * (const vector3f &other);
+		vector3f operator / (const vector3f &other);
 
-	vector3f operator * (const float scalar)const;
-	friend vector3f operator * (const float scalar, const vector3f &other);
+    vector3f operator * (const float scalar);
+    friend vector3f operator * (const float scalar, const vector3f &other);
     
 	vector3f& operator = (const vector3f &other);
     vector3f& operator += (const vector3f &other);
@@ -50,7 +48,6 @@ public:
 	vector3f operator - (void) const;
 
 	operator const float*() const {return &x;};
-    friend std::ostream & operator<<(std::ostream& os, const vector3f &v);
 };
 
 float distance(const vector3f &v1, const vector3f &v2);

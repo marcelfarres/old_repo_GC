@@ -18,7 +18,6 @@ public:
 	void render() const;
     bool contains(const vector3f & v) const;
     int get_octant(const vector3f &v) const;
-    bool intersects(const vector3f & point, const vector3f & direction) const;
     vector3f get_center() const;
     friend std::ostream& operator<<(std::ostream& os, const box3f& b); 
 };

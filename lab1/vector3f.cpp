@@ -1,5 +1,4 @@
 #include "vector3f.h"
-#include <iostream>
 
 vector3f::vector3f( float x_, float y_, float z_ )
 {
@@ -58,7 +57,7 @@ vector3f crossProduct( const vector3f &v1,  const vector3f &v2 )
 
 // Operators...
 
-vector3f vector3f::operator + (const vector3f &other)const
+vector3f vector3f::operator + ( const vector3f &other )
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -74,7 +73,7 @@ vector3f vector3f::operator + ( void ) const
     return *this;
 }
 
-vector3f vector3f::operator - (const vector3f &other)const
+vector3f vector3f::operator - ( const vector3f &other )
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -92,7 +91,7 @@ vector3f vector3f::operator - ( void ) const
     return vResult;
 }
 
-vector3f vector3f::operator * (const vector3f &other)const
+vector3f vector3f::operator * ( const vector3f &other )
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -103,7 +102,7 @@ vector3f vector3f::operator * (const vector3f &other)const
     return vResult;
 }
 
-vector3f vector3f::operator * (const float scalar)const
+vector3f vector3f::operator * ( const float scalar )
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -125,7 +124,7 @@ vector3f operator * ( const float scalar, const vector3f &other )
     return vResult;
 }
 
-vector3f vector3f::operator / (const vector3f &other)const
+vector3f vector3f::operator / ( const vector3f &other )
 {
     vector3f vResult(0.0f, 0.0f, 0.0f);
 
@@ -161,9 +160,4 @@ vector3f& vector3f::operator -= ( const vector3f &other )
     z -= other.z;
 
     return *this;
-}
-
-std::ostream & operator<<(std::ostream& os, const vector3f &v) {
-    os << "(" << v.x << ", " << v.y << ", " << v.z <<")";
-    return os;
 }
